@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 				SDL_RenderClear(g_renderer);
 
 				//Render banana
-				g_BananaTexture.render(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, g_renderer);
+				g_BananaTexture.render((SCREEN_WIDTH / 2) - (g_BananaTexture.getWidth() / 2), (SCREEN_HEIGHT / 2) - (g_BananaTexture.getHeight() / 2), g_renderer);
 
 				SDL_RenderPresent(g_renderer);
 			}
