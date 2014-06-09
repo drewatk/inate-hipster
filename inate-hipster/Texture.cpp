@@ -64,7 +64,7 @@ void Texture::free()
 	}
 }
 
-void Texture::render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip)
+void Texture::render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
 {
 	SDL_Rect renderQuad = { x, y, width, height };
 
@@ -74,7 +74,7 @@ void Texture::render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip)
 		renderQuad.h = clip->h;
 	}
 	
-	SDL_RenderCopy(renderer, texture, clip, &renderQuad);
+	SDL_RenderCopyEx(renderer, texture, clip, &renderQuad, angle, center, flip);
 }
 
 int Texture::getWidth()
