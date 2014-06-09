@@ -12,7 +12,7 @@ SDL_Renderer* g_renderer = NULL;
 
 //textures
 Texture g_BananaTexture;
-//Texture g_BackgroundTexture;
+Texture g_BackgroundTexture;
 
 
 //Screen Dementions
@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 	//Loads surfaces
 	if (!loadMedia())
 	{
-		printf("Couldn't load media\n");
+		printf("Couldn't load media SDL Error:%s\n", SDL_GetError());
 	}
 	else
 	{
@@ -56,8 +56,11 @@ int main(int argc, char* argv[])
 				SDL_SetRenderDrawColor(g_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderClear(g_renderer);
 
+				g_BackgroundTexture.render(0, 0, g_renderer);
+				
 				//Render banana
 				g_BananaTexture.render((SCREEN_WIDTH / 2) - (g_BananaTexture.getWidth() / 2), (SCREEN_HEIGHT / 2) - (g_BananaTexture.getHeight() / 2), g_renderer);
+				
 
 				SDL_RenderPresent(g_renderer);
 			}
@@ -117,6 +120,8 @@ bool loadMedia()
 	bool success = true;
 
 	success = g_BananaTexture.loadFromFile("sprites/bananaman.bmp", g_renderer);
+
+	success = g_BackgroundTexture.loadFromFile("sprites/tiles.jpg", g_renderer);
 
 	return success;
 }
