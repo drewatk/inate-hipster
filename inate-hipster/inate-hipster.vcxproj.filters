@@ -32,4 +32,12 @@
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\Sansus Webissimo-Italic.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="fonts\Sansus Webissimo-Regular.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+  </ItemGroup>
 </Project>

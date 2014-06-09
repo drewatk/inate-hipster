@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>
+#include <SDL_ttf.h>
 
 class Texture
 {
@@ -26,6 +27,10 @@ public:
 	//Gets image dimensions
 	int getWidth();
 	int getHeight();
+
+	#ifdef _SDL_TTF_H
+	bool loadFromRenderedText(std::string textureText, SDL_Color textColor, TTF_Font* font, SDL_Renderer* renderer);
+	#endif
 
 private:
 	SDL_Texture* texture;
