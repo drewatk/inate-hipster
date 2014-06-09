@@ -38,37 +38,37 @@ int main(int argc, char* argv[])
 	if (!loadMedia())
 	{
 		printf("Couldn't load media SDL Error:%s\n", SDL_GetError());
+		close();
+		return 1;
 	}
-	else
-	{
-		//main loop
-		bool quit = false;
 
-		SDL_Event e;
+	//main loop
+	bool quit = false;
+
+	SDL_Event e;
 		
-		SDL_Color textColor = { 255, 155, 0, 255 };
-		words.loadFromRenderedText("Happy Birthday", textColor, font, renderer);
+	SDL_Color textColor = { 255, 155, 0, 255 };
+	words.loadFromRenderedText("Happy Birthday", textColor, font, renderer);
 
-		while (!quit)
+	while (!quit)
+	{
+		while (SDL_PollEvent(&e) != 0) 
 		{
-			while (SDL_PollEvent(&e) != 0) 
+			if (e.type == SDL_QUIT)
 			{
-				if (e.type == SDL_QUIT)
-				{
-					quit = true;
-				}
-
-				//Clear the screen
-				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-				SDL_RenderClear(renderer);
-				
-				//Render the guy
-				playerTexture.render(100, SCREEN_HEIGHT - playerTexture.getHeight() - 75 , renderer);
-				
-				words.render(20, 20, renderer);
-				
-				SDL_RenderPresent(renderer);
+				quit = true;
 			}
+
+			//Clear the screen
+			SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+			SDL_RenderClear(renderer);
+				
+			//Render the guy
+			playerTexture.render(100, SCREEN_HEIGHT - playerTexture.getHeight() - 75 , renderer);
+				
+			words.render(20, 20, renderer);
+				
+			SDL_RenderPresent(renderer);
 		}
 	}
 
@@ -134,11 +134,16 @@ bool loadMedia()
 
 void close()
 {
-	playerTexture.~Texture();
+	playerTexture.free();
+	words.free();
 
 	//Destroy window
 	SDL_DestroyWindow(window);
 	window = NULL;
+
+	//Destroy renderer
+	SDL_DestroyRenderer(renderer);
+	renderer = NULL;
 
 	//Quit SDL subsystems
 	SDL_Quit();
