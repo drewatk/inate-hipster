@@ -28,11 +28,11 @@ public:
 	int getHeight();
 
 private:
-	SDL_Texture* m_Texture;
+	SDL_Texture* texture;
 
 	//Image demensions
-	int m_Width;
-	int m_Height;
+	int width;
+	int height;
 
 };
 

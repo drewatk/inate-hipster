@@ -6,13 +6,13 @@
 #include "Texture.h"
 
 //Window and Surface Pointers
-SDL_Window* g_window = NULL;
-SDL_Surface* g_ScreenSurface = NULL;
-SDL_Renderer* g_renderer = NULL;
+SDL_Window* window = NULL;
+SDL_Surface* screenSurface = NULL;
+SDL_Renderer* renderer = NULL;
 
 //textures
-Texture g_BananaTexture;
-Texture g_BackgroundTexture;
+Texture bananaTexture;
+Texture backgroundTexture;
 
 
 //Screen Dementions
@@ -53,16 +53,16 @@ int main(int argc, char* argv[])
 				}
 
 				//Clear the screen
-				SDL_SetRenderDrawColor(g_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-				SDL_RenderClear(g_renderer);
+				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+				SDL_RenderClear(renderer);
 
-				g_BackgroundTexture.render(0, 0, g_renderer);
+				backgroundTexture.render(0, 0, renderer);
 				
 				//Render banana
-				g_BananaTexture.render((SCREEN_WIDTH / 2) - (g_BananaTexture.getWidth() / 2), (SCREEN_HEIGHT / 2) - (g_BananaTexture.getHeight() / 2), g_renderer);
+				bananaTexture.render((SCREEN_WIDTH / 2) - (bananaTexture.getWidth() / 2), (SCREEN_HEIGHT / 2) - (bananaTexture.getHeight() / 2), renderer);
 				
 
-				SDL_RenderPresent(g_renderer);
+				SDL_RenderPresent(renderer);
 			}
 		}
 	}
@@ -83,24 +83,24 @@ bool init()
 	}
 	else
 	{
-		g_window = SDL_CreateWindow("VITAL TEAL WINDSHIELD", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-		if (g_window == NULL)
+		window = SDL_CreateWindow("VITAL TEAL WINDSHIELD", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		if (window == NULL)
 		{
-			printf("Could not make g_window SDL Error:%s", SDL_GetError());
+			printf("Could not make window SDL Error:%s", SDL_GetError());
 			success = false;
 		}
 		else
 		{
-			g_ScreenSurface = SDL_GetWindowSurface(g_window);
-			g_renderer = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_ACCELERATED);
-			if (g_renderer == NULL)
+			screenSurface = SDL_GetWindowSurface(window);
+			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+			if (renderer == NULL)
 			{
 				printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
 				success = false;
 			}
 			else
 			{
-				SDL_SetRenderDrawColor(g_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				int imgFlags = IMG_INIT_PNG;
 				if (!(IMG_Init(imgFlags) & imgFlags))
 				{
@@ -119,20 +119,20 @@ bool loadMedia()
 {
 	bool success = true;
 
-	success = g_BananaTexture.loadFromFile("sprites/bananaman.bmp", g_renderer);
+	success = bananaTexture.loadFromFile("sprites/bananaman.bmp", renderer);
 
-	success = g_BackgroundTexture.loadFromFile("sprites/tiles.jpg", g_renderer);
+	success = backgroundTexture.loadFromFile("sprites/tiles.jpg", renderer);
 
 	return success;
 }
 
 void close()
 {
-	g_BananaTexture.~Texture();
+	bananaTexture.~Texture();
 
-	//Destroy g_window
-	SDL_DestroyWindow(g_window);
-	g_window = NULL;
+	//Destroy window
+	SDL_DestroyWindow(window);
+	window = NULL;
 
 	//Quit SDL subsystems
 	SDL_Quit();
