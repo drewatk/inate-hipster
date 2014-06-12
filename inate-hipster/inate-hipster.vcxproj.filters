@@ -24,6 +24,9 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Sprite.h">
@@ -32,9 +35,15 @@
     <ClInclude Include="headers\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="headers\Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="sprites\bananaman.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprites\man.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

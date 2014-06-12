@@ -3,9 +3,11 @@
 #include <stdio.h>
 #include <string>
 #include <SDL_ttf.h>
+#include <sstream>
 
 #include "headers/Texture.h"
 #include "headers/Sprite.h"
+#include "headers/Timer.h"
 
 //Window and Surface Pointers
 SDL_Window* window = NULL;
@@ -15,13 +17,14 @@ SDL_Renderer* renderer = NULL;
 //Global font
 TTF_Font* font = NULL;
 
-
-//textures
+//textures & sprites
 Sprite playerSprite;
 Texture words;
 
 //Screen Dementions
 const int SCREEN_WIDTH = 1280, SCREEN_HEIGHT = 720;
+
+
 
 //Prototypes
 bool init();
@@ -42,16 +45,25 @@ int main(int argc, char* argv[])
 		close();
 		return 1;
 	}
-
-	//main loop
+	
+	//main loop flag
 	bool quit = false;
 
+	//event handler
 	SDL_Event e;
-		
-	SDL_Color textColor = { 255, 155, 0, 255 };
-	words.loadFromRenderedText("Frames per second: 600 billion", textColor, font, renderer);
+	
+	//set text color to black
+	SDL_Color textColor = { 0, 0, 0, 255 };
 
+	//FPS timer initialization
+	Timer fpsTimer;
+	std::stringstream timeText;
+	int countedFrames = 0;
+	fpsTimer.start();
+
+	//start sprite in middle of screen
 	playerSprite.setPos(0, (SCREEN_HEIGHT / 2) - (playerSprite.getHeight() / 2));
+
 
 	while (!quit)
 	{
@@ -63,20 +75,38 @@ int main(int argc, char* argv[])
 			}
 
 		}
-			playerSprite.handleEvent(e);
+		
+		//clalculate the fps, correct it if it's big
+		float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
+		if (avgFPS > 2000000)
+			avgFPS = 0;
+		
+		//assemble the fps string
+		timeText.str("");
+		timeText << "Average FPS:" << avgFPS;
+		
+		//render text
+		if (!words.loadFromRenderedText(timeText.str().c_str(), textColor, font, renderer))
+			printf("Unable to render FPS texture!\n");
+		words.render(20, 20, renderer);
+		
+		//handle sprite movement
+		playerSprite.handleEvent(e);
 
 
-			//Clear the screen
-			SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-			SDL_RenderClear(renderer);
+		//Clear the screen
+		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+		SDL_RenderClear(renderer);
 				
-			//Render the guy
-			playerSprite.move();
-			playerSprite.render(renderer);
+		//move and Render the guy
+		playerSprite.move();
+		playerSprite.render(renderer);
+			
+		//render the words
+		words.render(20, 20, renderer);
 				
-			words.render(20, 20, renderer);
-				
-			SDL_RenderPresent(renderer);
+		SDL_RenderPresent(renderer);
+		++countedFrames;
 		
 	}
 

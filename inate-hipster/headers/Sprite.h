@@ -1,5 +1,4 @@
-#ifndef SPRITE_H
-#define SPRITE_H
+#pragma once
 
 #include <SDL.h>
 #include <string>
@@ -29,5 +28,3 @@ private:
 	int posX, posY;
 	int velX, velY;
 };
-
-#endif

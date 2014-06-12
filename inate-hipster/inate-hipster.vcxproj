@@ -72,13 +72,16 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Sprite.h" />
     <ClInclude Include="headers\Texture.h" />
+    <ClInclude Include="headers\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="sprites\bananaman.bmp" />
+    <Image Include="sprites\man.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="fonts\Sansus Webissimo-Italic.ttf" />
