@@ -4,7 +4,8 @@
 #include <string>
 #include <SDL_ttf.h>
 
-#include "Texture.h"
+#include "headers/Texture.h"
+#include "headers/Sprite.h"
 
 //Window and Surface Pointers
 SDL_Window* window = NULL;
@@ -16,7 +17,7 @@ TTF_Font* font = NULL;
 
 
 //textures
-Texture playerTexture;
+Sprite playerSprite;
 Texture words;
 
 //Screen Dementions
@@ -48,28 +49,35 @@ int main(int argc, char* argv[])
 	SDL_Event e;
 		
 	SDL_Color textColor = { 255, 155, 0, 255 };
-	words.loadFromRenderedText("Happy Birthday", textColor, font, renderer);
+	words.loadFromRenderedText("Frames per second: 600 billion", textColor, font, renderer);
+
+	playerSprite.setPos(0, (SCREEN_HEIGHT / 2) - (playerSprite.getHeight() / 2));
 
 	while (!quit)
 	{
-		while (SDL_PollEvent(&e) != 0) 
+		while (SDL_PollEvent(&e) != 0)
 		{
 			if (e.type == SDL_QUIT)
 			{
 				quit = true;
 			}
 
+		}
+			playerSprite.handleEvent(e);
+
+
 			//Clear the screen
 			SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 			SDL_RenderClear(renderer);
 				
 			//Render the guy
-			playerTexture.render(100, SCREEN_HEIGHT - playerTexture.getHeight() - 75 , renderer);
+			playerSprite.move();
+			playerSprite.render(renderer);
 				
 			words.render(20, 20, renderer);
 				
 			SDL_RenderPresent(renderer);
-		}
+		
 	}
 
 	close();
@@ -127,14 +135,14 @@ bool loadMedia()
 {
 	bool success = true;
 
-	playerTexture.loadFromFile("sprites/man.png", renderer);
+	playerSprite.load("sprites/man.png", renderer);
 	
 	return success;
 }
 
 void close()
 {
-	playerTexture.free();
+	//playerTexture.free();
 	words.free();
 
 	//Destroy window

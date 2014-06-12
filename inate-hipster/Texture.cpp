@@ -1,4 +1,4 @@
-#include "Texture.h"
+#include "headers/Texture.h"
 
 Texture::Texture(): texture(NULL), width(0), height(0)
 {

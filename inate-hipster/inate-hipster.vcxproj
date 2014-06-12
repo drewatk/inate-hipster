@@ -70,10 +70,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="headers\Sprite.h" />
+    <ClInclude Include="headers\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="sprites\bananaman.bmp" />
