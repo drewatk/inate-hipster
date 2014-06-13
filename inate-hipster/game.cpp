@@ -21,8 +21,10 @@ TTF_Font* font = NULL;
 Sprite playerSprite;
 Texture words;
 
-//Screen Dementions
+//Screen Constants
 const int SCREEN_WIDTH = 1280, SCREEN_HEIGHT = 720;
+const int SCREEN_FPS = 120;
+const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 
 //Prototypes
@@ -60,6 +62,9 @@ int main(int argc, char* argv[])
 	int countedframes = 0;
 	fpsTimer.start();
 
+	//frame cap timer
+	Timer capTimer;
+
 	//start sprite in middle of screen
 	playerSprite.setPos(0, (SCREEN_HEIGHT / 2) - (playerSprite.getHeight() / 2));
 	playerSprite.startTimer();
@@ -74,7 +79,9 @@ int main(int argc, char* argv[])
 			}
 
 		}
-		
+		//start the frame cap timer
+		capTimer.start();
+
 		//clalculate the fps, correct it if it's big
 		float avgFPS = countedframes / (fpsTimer.getTicks() / 1000.f);
 		if (avgFPS > 2000000)
@@ -106,6 +113,12 @@ int main(int argc, char* argv[])
 				
 		SDL_RenderPresent(renderer);
 		countedframes++;
+
+		int frameTicks = capTimer.getTicks();
+		if (frameTicks < SCREEN_TICKS_PER_FRAME)
+		{
+			SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
+		}
 	}
 
 	close();

@@ -34,7 +34,7 @@ private:
 
 	Timer moveTimer;
 
-	const int SPRITE_MAX_ACCEL = 5;
+	const int SPRITE_MAX_ACCEL = 10;
 };
 
 #endif
