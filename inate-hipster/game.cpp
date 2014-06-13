@@ -56,8 +56,6 @@ int main(int argc, char* argv[])
 	//FPS timer initialization
 	Timer fpsTimer;
 	std::stringstream timeText;
-	int countedFrames = 0;
-	fpsTimer.start();
 
 	//start sprite in middle of screen
 	playerSprite.setPos(0, (SCREEN_HEIGHT / 2) - (playerSprite.getHeight() / 2));
@@ -75,9 +73,11 @@ int main(int argc, char* argv[])
 		}
 		
 		//clalculate the fps, correct it if it's big
-		float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
+		float avgFPS = 1 / (fpsTimer.getTicks() / 1000.f);
 		if (avgFPS > 2000000)
 			avgFPS = 0;
+		fpsTimer.stop();
+		fpsTimer.start();
 		
 		//assemble the fps string
 		timeText.str("");
@@ -123,7 +123,7 @@ bool init()
 	}
 
 	//Create Window and 
-	window = SDL_CreateWindow("VITAL TEAL WINDSHIELD", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("inate-hipster", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == NULL)
 	{
 		printf("Could not make window SDL Error:%s", SDL_GetError());
