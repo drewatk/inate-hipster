@@ -1,7 +1,7 @@
 #include "headers/Sprite.h"
 
 
-Sprite::Sprite() : texture(), posX(0), posY(0), velX(0), velY(0), colBox({posX, posY,0,0})
+Sprite::Sprite() : texture(), posX(0), posY(0), velX(0), velY(0), colBox({ posX, posY, 0, 0 }), moveTimer()
 {
 }
 
@@ -44,8 +44,14 @@ void Sprite::render(SDL_Renderer* renderer)
 
 void Sprite::move()
 {
-	posX += velX;
-	posY += velY;
+	float timesincemove = moveTimer.getTicks() /1000.f;
+
+	
+	posX += velX * timesincemove;
+	posY += velY * timesincemove;
+	moveTimer.start();
+
+
 }
 
 void Sprite::handleEvent(SDL_Event& e)
@@ -79,4 +85,19 @@ int Sprite::getWidth()
 int Sprite::getHeight()
 {
 	return texture.getHeight();
+}
+
+void Sprite::startTimer()
+{
+	moveTimer.start();
+}
+
+int Sprite::getX()
+{
+	return posX;
+}
+
+int Sprite::getY()
+{
+	return posY;
 }

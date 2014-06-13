@@ -25,7 +25,6 @@ Texture words;
 const int SCREEN_WIDTH = 1280, SCREEN_HEIGHT = 720;
 
 
-
 //Prototypes
 bool init();
 bool loadMedia();
@@ -63,7 +62,7 @@ int main(int argc, char* argv[])
 
 	//start sprite in middle of screen
 	playerSprite.setPos(0, (SCREEN_HEIGHT / 2) - (playerSprite.getHeight() / 2));
-
+	playerSprite.startTimer();
 
 	while (!quit)
 	{
@@ -132,7 +131,7 @@ bool init()
 	}
 
 	//Create Renderer
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED /*| SDL_RENDERER_PRESENTVSYNC*/);
 	if (renderer == NULL)
 	{
 		printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());

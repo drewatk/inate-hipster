@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Texture.h"
+#include "Timer.h"
 
 class Sprite
 {
@@ -19,8 +20,10 @@ public:
 	void free();
 	int getWidth();
 	int getHeight();
+	int getX();
+	int getY();
+	void startTimer();
 
-	const int SPRITE_MAX_ACCEL = 1;
 
 private:
 	Texture texture;
@@ -28,6 +31,10 @@ private:
 
 	int posX, posY;
 	int velX, velY;
+
+	Timer moveTimer;
+
+	const int SPRITE_MAX_ACCEL = 5;
 };
 
 #endif
