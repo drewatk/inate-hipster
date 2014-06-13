@@ -58,6 +58,8 @@ int main(int argc, char* argv[])
 	//FPS timer initialization
 	Timer fpsTimer;
 	std::stringstream timeText;
+	int countedframes = 0;
+	fpsTimer.start();
 
 	//start sprite in middle of screen
 	playerSprite.setPos(0, (SCREEN_HEIGHT / 2) - (playerSprite.getHeight() / 2));
@@ -75,11 +77,9 @@ int main(int argc, char* argv[])
 		}
 		
 		//clalculate the fps, correct it if it's big
-		float avgFPS = 1 / (fpsTimer.getTicks() / 1000.f);
+		float avgFPS = countedframes / (fpsTimer.getTicks() / 1000.f);
 		if (avgFPS > 2000000)
 			avgFPS = 0;
-		fpsTimer.stop();
-		fpsTimer.start();
 		
 		//assemble the fps string
 		timeText.str("");
@@ -106,8 +106,7 @@ int main(int argc, char* argv[])
 		words.render(20, 20, renderer);
 				
 		SDL_RenderPresent(renderer);
-		++countedFrames;
-		
+		countedframes++;
 	}
 
 	close();
