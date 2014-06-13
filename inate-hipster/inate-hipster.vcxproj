@@ -80,7 +80,6 @@
     <ClInclude Include="headers\Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="sprites\bananaman.bmp" />
     <Image Include="sprites\man.png" />
   </ItemGroup>
   <ItemGroup>

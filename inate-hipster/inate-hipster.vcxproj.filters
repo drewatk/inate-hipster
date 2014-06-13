@@ -40,9 +40,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="sprites\bananaman.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="sprites\man.png">
       <Filter>Resource Files</Filter>
     </Image>
