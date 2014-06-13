@@ -1,12 +1,12 @@
 #include <SDL.h>
 #include <SDL_image.h>
-#include <stdio.h>
-#include <string>
 #include <SDL_ttf.h>
 #include <sstream>
+#include <stdio.h>
+#include <string>
 
-#include "headers/Texture.h"
 #include "headers/Sprite.h"
+#include "headers/Texture.h"
 #include "headers/Timer.h"
 
 //Window and Surface Pointers

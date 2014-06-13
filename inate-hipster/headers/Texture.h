@@ -1,10 +1,9 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#pragma once
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include <string>
 #include <SDL_ttf.h>
+#include <string>
 
 class Texture
 {
@@ -40,5 +39,3 @@ private:
 	int height;
 
 };
-
-#endif
