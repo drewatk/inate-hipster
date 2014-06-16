@@ -22,8 +22,6 @@ public:
 	int getHeight();
 	int getX();
 	int getY();
-	void startTimer();
-
 
 private:
 	Texture texture;

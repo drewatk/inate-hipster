@@ -55,9 +55,6 @@ void Sprite::move(SDL_Rect& wall)
 	posY += velY * timesincemove;
 	moveTimer.start();
 
-	
-
-	
 }
 
 void Sprite::handleEvent(SDL_Event& e)
@@ -91,11 +88,6 @@ int Sprite::getWidth()
 int Sprite::getHeight()
 {
 	return texture.getHeight();
-}
-
-void Sprite::startTimer()
-{
-	moveTimer.start();
 }
 
 int Sprite::getX()

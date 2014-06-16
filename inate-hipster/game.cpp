@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 
 	//start sprite in middle of screen
 	playerSprite.setPos(0, (SCREEN_HEIGHT / 2) - (playerSprite.getHeight() / 2));
-	playerSprite.startTimer();
+	//playerSprite.startTimer();
 
 	while (!quit)
 	{
