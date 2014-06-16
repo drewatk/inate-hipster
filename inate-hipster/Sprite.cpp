@@ -42,16 +42,22 @@ void Sprite::render(SDL_Renderer* renderer)
 	texture.render(posX, posY, renderer);
 }
 
-void Sprite::move()
+void Sprite::move(SDL_Rect& wall)
 {
-	float timesincemove = moveTimer.getTicks() /1000.f;
+	float timesincemove = moveTimer.getTicks() / 1000.f;
 
-	
+	if (posX < -1) { posX = 0; velX *= -1; }
+	if (posX + getWidth() > wall.w + 1) { posX = wall.w - getWidth(); velX *= -1; }
+	if (posY < -1) { posY = 0; velY *= -1; }
+	if (posY + getHeight() > wall.h + 1) { posY = wall.h - getHeight(); velY *= -1; }
+
 	posX += velX * timesincemove;
 	posY += velY * timesincemove;
 	moveTimer.start();
 
+	
 
+	
 }
 
 void Sprite::handleEvent(SDL_Event& e)

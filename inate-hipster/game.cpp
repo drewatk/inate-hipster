@@ -13,6 +13,7 @@
 SDL_Window* window = NULL;
 SDL_Surface* screenSurface = NULL;
 SDL_Renderer* renderer = NULL;
+SDL_Rect wall;
 
 //Global font
 TTF_Font* font = NULL;
@@ -105,7 +106,7 @@ int main(int argc, char* argv[])
 		SDL_RenderClear(renderer);
 				
 		//move and Render the guy
-		playerSprite.move();
+		playerSprite.move(wall);
 		playerSprite.render(renderer);
 			
 		//render the words
@@ -142,6 +143,8 @@ bool init()
 		printf("Could not make window SDL Error:%s", SDL_GetError());
 		return false;
 	}
+	else
+		wall = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
 	//Create Renderer
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED /*| SDL_RENDERER_PRESENTVSYNC*/);

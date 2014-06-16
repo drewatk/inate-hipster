@@ -14,7 +14,7 @@ public:
 	~Sprite();
 	bool load(std::string filePath, SDL_Renderer* renderer);
 	void render(SDL_Renderer* renderer);
-	void move();
+	void move(SDL_Rect& wall);
 	void handleEvent(SDL_Event& e);
 	void setPos(int x, int y);
 	void free();
