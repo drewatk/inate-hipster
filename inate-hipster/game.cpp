@@ -200,3 +200,14 @@ void close()
 	//Quit SDL subsystems
 	SDL_Quit();
 }
+
+bool checkCol(SDL_Rect box1, SDL_Rect box2)
+{
+	if (box1.x < box2.x + box2.w &&
+		box1.x + box1.w > box2.x &&
+		box1.y < box2.y + box2.h &&
+		box1.h + box1.y > box2.y) 
+		return true;
+	else
+		return false;
+}
