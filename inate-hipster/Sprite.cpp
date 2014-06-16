@@ -99,3 +99,8 @@ int Sprite::getY()
 {
 	return posY;
 }
+
+SDL_Rect Sprite::getColBox()
+{
+	return colBox;
+}

@@ -22,6 +22,7 @@ public:
 	int getHeight();
 	int getX();
 	int getY();
+	SDL_Rect getColBox();
 
 private:
 	Texture texture;
