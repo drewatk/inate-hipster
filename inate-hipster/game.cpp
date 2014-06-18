@@ -68,7 +68,6 @@ int main(int argc, char* argv[])
 
 	//start sprite in middle of screen
 	playerSprite.setPos(0, (SCREEN_HEIGHT / 2) - (playerSprite.getHeight() / 2));
-	//playerSprite.startTimer();
 
 	while (!quit)
 	{
@@ -99,7 +98,6 @@ int main(int argc, char* argv[])
 		
 		//handle sprite movement
 		playerSprite.handleEvent(e);
-
 
 		//Clear the screen
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
