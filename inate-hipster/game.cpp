@@ -20,6 +20,7 @@ TTF_Font* font = NULL;
 
 //textures & sprites
 Texture FPSwords;
+Texture backgroundTexture;
 
 //Screen Constants
 const int SCREEN_WIDTH = 1920, SCREEN_HEIGHT = 1080;
@@ -95,7 +96,8 @@ int main(int argc, char* argv[])
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(renderer);
 				
-		//render the words
+		//render the words and background
+		backgroundTexture.render(0, 0, renderer);
 		FPSwords.render(20, 20, renderer);
 				
 		SDL_RenderPresent(renderer);
@@ -140,8 +142,8 @@ bool init()
 		return false;
 	}
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-	SDL_RenderSetLogicalSize(renderer, SCREEN_HEIGHT, SCREEN_WIDTH);
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
+	SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 	
 	//Initialize SDL_img
 	int imgFlags = IMG_INIT_PNG;
@@ -167,6 +169,8 @@ bool loadMedia()
 {
 	bool success = true;
 	
+	backgroundTexture.loadFromFile("sprites/background.tif", renderer);
+
 	return success;
 }
 
