@@ -39,7 +39,7 @@ void Sprite::free()
 
 void Sprite::render(SDL_Renderer* renderer, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
 {
-	texture.render(posX, posY, renderer, clip, angle, center, flip);
+	texture.render((int)posX, (int)posY, renderer, clip, angle, center, flip);
 }
 
 void Sprite::move(SDL_Rect& wall)

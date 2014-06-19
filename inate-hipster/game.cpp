@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
 				
 		//move and Render the guy
 		playerSprite.move(wall);
-		playerSprite.render(renderer, NULL, 50, NULL, SDL_FLIP_NONE);
+		playerSprite.render(renderer, NULL, 0, NULL, SDL_FLIP_NONE);
 			
 		//render the words
 		words.render(20, 20, renderer);

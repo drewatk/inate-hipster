@@ -22,14 +22,19 @@ public:
 	int getHeight();
 	int getX();
 	int getY();
+	int getXvel()
+	{
+		return velX;
+	}
+
 	SDL_Rect getColBox();
 
 private:
 	Texture texture;
 	SDL_Rect colBox;
 
-	int posX, posY;
-	int velX, velY;
+	float posX, posY;
+	float velX, velY;
 
 	Timer moveTimer;
 
