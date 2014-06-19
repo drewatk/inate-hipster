@@ -22,10 +22,6 @@ public:
 	int getHeight();
 	int getX();
 	int getY();
-	int getXvel()
-	{
-		return velX;
-	}
 
 	SDL_Rect getColBox();
 
