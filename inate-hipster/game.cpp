@@ -19,11 +19,10 @@ SDL_Rect wall;
 TTF_Font* font = NULL;
 
 //textures & sprites
-Sprite playerSprite;
-Texture words;
+Texture FPSwords;
 
 //Screen Constants
-const int SCREEN_WIDTH = 1280, SCREEN_HEIGHT = 720;
+const int SCREEN_WIDTH = 1920, SCREEN_HEIGHT = 1080;
 const int SCREEN_FPS = 120;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
@@ -65,9 +64,6 @@ int main(int argc, char* argv[])
 	//frame cap timer
 	Timer capTimer;
 
-	//start sprite in middle of screen
-	playerSprite.setPos(0, (SCREEN_HEIGHT / 2) - (playerSprite.getHeight() / 2));
-
 	while (!quit)
 	{
 		while (SDL_PollEvent(&e) != 0)
@@ -91,23 +87,16 @@ int main(int argc, char* argv[])
 		timeText << "Average FPS:" << avgFPS;
 		
 		//render text
-		if (!words.loadFromRenderedText(timeText.str().c_str(), textColor, font, renderer))
+		if (!FPSwords.loadFromRenderedText(timeText.str().c_str(), textColor, font, renderer))
 			printf("Unable to render FPS texture!\n");
-		words.render(20, 20, renderer);
-		
-		//handle sprite movement
-		playerSprite.handleEvent(e);
+		FPSwords.render(20, 20, renderer);
 
 		//Clear the screen
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(renderer);
 				
-		//move and Render the guy
-		playerSprite.move(wall);
-		playerSprite.render(renderer, NULL, 0, NULL, SDL_FLIP_NONE);
-			
 		//render the words
-		words.render(20, 20, renderer);
+		FPSwords.render(20, 20, renderer);
 				
 		SDL_RenderPresent(renderer);
 		countedframes++;
@@ -134,7 +123,7 @@ bool init()
 	}
 
 	//Create Window and 
-	window = SDL_CreateWindow("inate-hipster", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("inate-hipster", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	if (window == NULL)
 	{
 		printf("Could not make window SDL Error:%s", SDL_GetError());
@@ -151,6 +140,8 @@ bool init()
 		return false;
 	}
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+	SDL_RenderSetLogicalSize(renderer, SCREEN_HEIGHT, SCREEN_WIDTH);
 	
 	//Initialize SDL_img
 	int imgFlags = IMG_INIT_PNG;
@@ -175,8 +166,6 @@ bool init()
 bool loadMedia()
 {
 	bool success = true;
-
-	playerSprite.load("sprites/man.png", renderer);
 	
 	return success;
 }
@@ -184,7 +173,7 @@ bool loadMedia()
 void close()
 {
 	//playerTexture.free();
-	words.free();
+	FPSwords.free();
 
 	//Destroy window
 	SDL_DestroyWindow(window);
