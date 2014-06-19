@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
 	SDL_Event e;
 	
 	//set text color to black
-	SDL_Color textColor = { 0, 0, 0, 255 };
+	SDL_Color textColor = { 0xff, 0xff, 0xff, 0xff };
 
 	//FPS timer initialization
 	Timer fpsTimer;
@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
 		FPSwords.render(20, 20, renderer);
 
 		//Clear the screen
-		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 		SDL_RenderClear(renderer);
 				
 		//render the words and background
@@ -141,7 +141,7 @@ bool init()
 		printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
 		return false;
 	}
-	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
 	SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 	
