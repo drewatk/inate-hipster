@@ -21,6 +21,7 @@ TTF_Font* font = NULL;
 //textures & sprites
 Texture FPSwords;
 Texture backgroundTexture;
+Sprite mothershipSprite;
 
 //Screen Constants
 const int SCREEN_WIDTH = 1920, SCREEN_HEIGHT = 1080;
@@ -65,6 +66,8 @@ int main(int argc, char* argv[])
 	//frame cap timer
 	Timer capTimer;
 
+	mothershipSprite.setPos((SCREEN_WIDTH - mothershipSprite.getWidth()) / 2, (SCREEN_HEIGHT - mothershipSprite.getHeight()) / 2);
+
 	while (!quit)
 	{
 		while (SDL_PollEvent(&e) != 0)
@@ -99,6 +102,7 @@ int main(int argc, char* argv[])
 		//render the words and background
 		backgroundTexture.render(0, 0, renderer);
 		FPSwords.render(20, 20, renderer);
+		mothershipSprite.render(renderer, NULL, 90);
 				
 		SDL_RenderPresent(renderer);
 		countedframes++;
@@ -170,6 +174,7 @@ bool loadMedia()
 	bool success = true;
 	
 	backgroundTexture.loadFromFile("sprites/background.tif", renderer);
+	mothershipSprite.load("sprites/Titan.png", renderer);
 
 	return success;
 }
