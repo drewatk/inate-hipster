@@ -65,16 +65,17 @@ int main(int argc, char* argv[])
 	//set text color to black
 	SDL_Color textColor = { 0xff, 0xff, 0xff, 0xff };
 
+	mothershipSprite.setPos((SCREEN_WIDTH - mothershipSprite.getWidth()) / 2, (SCREEN_HEIGHT - mothershipSprite.getHeight()) / 2);
+
 	//FPS timer initialization
 	Timer fpsTimer;
 	std::stringstream timeText;
-	int countedframes = 0;
+	int countedFrames = 0;
+	int fpsShown = 0;
 	fpsTimer.start();
 
 	//frame cap timer
 	Timer capTimer;
-
-	mothershipSprite.setPos((SCREEN_WIDTH - mothershipSprite.getWidth()) / 2, (SCREEN_HEIGHT - mothershipSprite.getHeight()) / 2);
 
 	while (!quit)
 	{
@@ -90,13 +91,17 @@ int main(int argc, char* argv[])
 		capTimer.start();
 
 		//clalculate the fps
-		float avgFPS = countedframes / (fpsTimer.getTicks() / 1000.f);
-		if (avgFPS > 2000000)
-			avgFPS = 0;
+		if (fpsTimer.getTicks() > 1000)
+		{
+			fpsShown = countedFrames;
+			fpsTimer.start();
+			countedFrames = 0;
+		}
+		
 
 		//assemble the fps string
 		timeText.str("");
-		timeText << "FPS:" << avgFPS;
+		timeText << "FPS:" << fpsShown;
 		
 		//render text
 		if (!FPSwords.loadFromRenderedText(timeText.str().c_str(), textColor, font, renderer))
@@ -114,7 +119,7 @@ int main(int argc, char* argv[])
 		
 		//render
 		SDL_RenderPresent(renderer);
-		countedframes++;
+		countedFrames++;
 
 		int frameTicks = capTimer.getTicks();
 		if (frameTicks < SCREEN_TICKS_PER_FRAME)
