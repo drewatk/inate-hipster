@@ -19,18 +19,24 @@ SDL_Rect wall;
 TTF_Font* font = NULL;
 
 //textures & sprites
-Sprite playerSprite;
-Texture words;
+Texture FPSwords;
+Texture backgroundTexture;
+Sprite mothershipSprite;
 
 //Screen Constants
-const int SCREEN_WIDTH = 1280, SCREEN_HEIGHT = 720;
+const int SCREEN_WIDTH = 1920, SCREEN_HEIGHT = 1080;
 const int SCREEN_FPS = 120;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
+
+//Level constants
+const int LEVEL_WIDTH = 3622;
+const int LEVEL_HEIGHT = 3877;
 
 //Prototypes
 bool init();
 bool loadMedia();
 void close();
+void cameraMove(SDL_Rect camera, Sprite ship);
 
 int main(int argc, char* argv[])
 {
@@ -53,20 +59,23 @@ int main(int argc, char* argv[])
 	//event handler
 	SDL_Event e;
 	
+	//camera rectangle
+	SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+
 	//set text color to black
-	SDL_Color textColor = { 0, 0, 0, 255 };
+	SDL_Color textColor = { 0xff, 0xff, 0xff, 0xff };
+
+	mothershipSprite.setPos((SCREEN_WIDTH - mothershipSprite.getWidth()) / 2, (SCREEN_HEIGHT - mothershipSprite.getHeight()) / 2);
 
 	//FPS timer initialization
 	Timer fpsTimer;
 	std::stringstream timeText;
-	int countedframes = 0;
+	int countedFrames = 0;
+	int fpsShown = 0;
 	fpsTimer.start();
 
 	//frame cap timer
 	Timer capTimer;
-
-	//start sprite in middle of screen
-	playerSprite.setPos(0, (SCREEN_HEIGHT / 2) - (playerSprite.getHeight() / 2));
 
 	while (!quit)
 	{
@@ -81,36 +90,36 @@ int main(int argc, char* argv[])
 		//start the frame cap timer
 		capTimer.start();
 
-		//clalculate the fps, correct it if it's big
-		float avgFPS = countedframes / (fpsTimer.getTicks() / 1000.f);
-		if (avgFPS > 2000000)
-			avgFPS = 0;
+		//clalculate the fps
+		if (fpsTimer.getTicks() > 1000)
+		{
+			fpsShown = countedFrames;
+			fpsTimer.start();
+			countedFrames = 0;
+		}
 		
+
 		//assemble the fps string
 		timeText.str("");
-		timeText << "Average FPS:" << avgFPS;
+		timeText << "FPS:" << fpsShown;
 		
 		//render text
-		if (!words.loadFromRenderedText(timeText.str().c_str(), textColor, font, renderer))
+		if (!FPSwords.loadFromRenderedText(timeText.str().c_str(), textColor, font, renderer))
 			printf("Unable to render FPS texture!\n");
-		words.render(20, 20, renderer);
-		
-		//handle sprite movement
-		playerSprite.handleEvent(e);
+		FPSwords.render(20, 20, renderer);
 
 		//Clear the screen
-		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 		SDL_RenderClear(renderer);
 				
-		//move and Render the guy
-		playerSprite.move(wall);
-		playerSprite.render(renderer, NULL, 0, NULL, SDL_FLIP_NONE);
-			
-		//render the words
-		words.render(20, 20, renderer);
-				
+		//render the words and background
+		backgroundTexture.render(0, 0, renderer);
+		FPSwords.render(20, 20, renderer);
+		mothershipSprite.render(renderer);
+		
+		//render
 		SDL_RenderPresent(renderer);
-		countedframes++;
+		countedFrames++;
 
 		int frameTicks = capTimer.getTicks();
 		if (frameTicks < SCREEN_TICKS_PER_FRAME)
@@ -134,7 +143,7 @@ bool init()
 	}
 
 	//Create Window and 
-	window = SDL_CreateWindow("inate-hipster", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("inate-hipster", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	if (window == NULL)
 	{
 		printf("Could not make window SDL Error:%s", SDL_GetError());
@@ -150,10 +159,12 @@ bool init()
 		printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
 		return false;
 	}
-	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
+	SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 	
 	//Initialize SDL_img
-	int imgFlags = IMG_INIT_PNG;
+	int imgFlags = IMG_INIT_PNG | IMG_INIT_TIF;
 	if (!(IMG_Init(imgFlags) & imgFlags))
 	{
 		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
@@ -175,16 +186,17 @@ bool init()
 bool loadMedia()
 {
 	bool success = true;
-
-	playerSprite.load("sprites/man.png", renderer);
 	
+	backgroundTexture.loadFromFile("sprites/background.tif", renderer);
+	mothershipSprite.load("sprites/Titan.png", renderer);
+
 	return success;
 }
 
 void close()
 {
 	//playerTexture.free();
-	words.free();
+	FPSwords.free();
 
 	//Destroy window
 	SDL_DestroyWindow(window);
@@ -207,4 +219,29 @@ bool checkCol(SDL_Rect box1, SDL_Rect box2)
 		return true;
 	else
 		return false;
+}
+
+void cameraMove(SDL_Rect camera, Sprite ship)
+{
+	//Center the camera over the ship
+	camera.x = (ship.getX() + ship.getWidth() / 2) - SCREEN_WIDTH / 2;
+	camera.y = (ship.getY() + ship.getHeight() / 2) - SCREEN_HEIGHT / 2;
+
+	//Keep the camera in bounds
+	if (camera.x < 0)
+	{
+		camera.x = 0;
+	}
+	if (camera.y < 0)
+	{
+		camera.y = 0;
+	}
+	if (camera.x > LEVEL_WIDTH - camera.w)
+	{
+		camera.x = LEVEL_WIDTH - camera.w;
+	}
+	if (camera.y > LEVEL_HEIGHT - camera.h)
+	{
+		camera.y = LEVEL_HEIGHT - camera.h;
+	}
 }

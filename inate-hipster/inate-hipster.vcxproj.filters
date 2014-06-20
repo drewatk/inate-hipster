@@ -43,6 +43,15 @@
     <Image Include="sprites\man.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="sprites\background.tif">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprites\ships.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprites\Titan.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="fonts\Sansus Webissimo-Italic.ttf">

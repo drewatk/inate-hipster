@@ -80,7 +80,10 @@
     <ClInclude Include="headers\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="sprites\background.tif" />
     <Image Include="sprites\man.png" />
+    <Image Include="sprites\ships.png" />
+    <Image Include="sprites\Titan.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="fonts\Sansus Webissimo-Italic.ttf" />
