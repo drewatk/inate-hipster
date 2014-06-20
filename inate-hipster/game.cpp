@@ -28,10 +28,15 @@ const int SCREEN_WIDTH = 1920, SCREEN_HEIGHT = 1080;
 const int SCREEN_FPS = 120;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
+//Level constants
+const int LEVEL_WIDTH = 3622;
+const int LEVEL_HEIGHT = 3877;
+
 //Prototypes
 bool init();
 bool loadMedia();
 void close();
+void cameraMove(SDL_Rect camera, Sprite ship);
 
 int main(int argc, char* argv[])
 {
@@ -54,6 +59,9 @@ int main(int argc, char* argv[])
 	//event handler
 	SDL_Event e;
 	
+	//camera rectangle
+	SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+
 	//set text color to black
 	SDL_Color textColor = { 0xff, 0xff, 0xff, 0xff };
 
@@ -81,14 +89,14 @@ int main(int argc, char* argv[])
 		//start the frame cap timer
 		capTimer.start();
 
-		//clalculate the fps, correct it if it's big
+		//clalculate the fps
 		float avgFPS = countedframes / (fpsTimer.getTicks() / 1000.f);
 		if (avgFPS > 2000000)
 			avgFPS = 0;
-		
+
 		//assemble the fps string
 		timeText.str("");
-		timeText << "Average FPS:" << avgFPS;
+		timeText << "FPS:" << avgFPS;
 		
 		//render text
 		if (!FPSwords.loadFromRenderedText(timeText.str().c_str(), textColor, font, renderer))
@@ -102,8 +110,9 @@ int main(int argc, char* argv[])
 		//render the words and background
 		backgroundTexture.render(0, 0, renderer);
 		FPSwords.render(20, 20, renderer);
-		mothershipSprite.render(renderer, NULL, 90);
-				
+		mothershipSprite.render(renderer);
+		
+		//render
 		SDL_RenderPresent(renderer);
 		countedframes++;
 
@@ -205,4 +214,29 @@ bool checkCol(SDL_Rect box1, SDL_Rect box2)
 		return true;
 	else
 		return false;
+}
+
+void cameraMove(SDL_Rect camera, Sprite ship)
+{
+	//Center the camera over the ship
+	camera.x = (ship.getX() + ship.getWidth() / 2) - SCREEN_WIDTH / 2;
+	camera.y = (ship.getY() + ship.getHeight() / 2) - SCREEN_HEIGHT / 2;
+
+	//Keep the camera in bounds
+	if (camera.x < 0)
+	{
+		camera.x = 0;
+	}
+	if (camera.y < 0)
+	{
+		camera.y = 0;
+	}
+	if (camera.x > LEVEL_WIDTH - camera.w)
+	{
+		camera.x = LEVEL_WIDTH - camera.w;
+	}
+	if (camera.y > LEVEL_HEIGHT - camera.h)
+	{
+		camera.y = LEVEL_HEIGHT - camera.h;
+	}
 }

@@ -1,7 +1,7 @@
 #include "headers/Sprite.h"
 
 
-Sprite::Sprite() : texture(), posX(0), posY(0), velX(0), velY(0), colBox({ posX, posY, 0, 0 }), moveTimer()
+Sprite::Sprite() : texture(), posX(0), posY(0), velX(0), velY(0), colBox({ posX, posY, 0, 0 }), moveTimer(), angle(0), center(NULL), flip(SDL_FLIP_NONE)
 {
 }
 
@@ -37,7 +37,7 @@ void Sprite::free()
 	texture.free();
 }
 
-void Sprite::render(SDL_Renderer* renderer, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
+void Sprite::render(SDL_Renderer* renderer, SDL_Rect* clip)
 {
 	texture.render((int)posX, (int)posY, renderer, clip, angle, center, flip);
 }

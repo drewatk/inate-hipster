@@ -13,7 +13,7 @@ public:
 	Sprite();
 	~Sprite();
 	bool load(std::string filePath, SDL_Renderer* renderer);
-	void render(SDL_Renderer* renderer, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
+	void render(SDL_Renderer* renderer, SDL_Rect* clip = NULL);
 	void move(SDL_Rect& wall);
 	void handleEvent(SDL_Event& e);
 	void setPos(int x, int y);
@@ -31,6 +31,12 @@ private:
 
 	float posX, posY;
 	float velX, velY;
+	
+	//rotation variables
+	double angle;
+	SDL_Point* center;
+	SDL_RendererFlip flip;
+
 
 	Timer moveTimer;
 
