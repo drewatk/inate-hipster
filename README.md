@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/randomcrispy/inate-hipster.png?label=ready&title=Ready)](https://waffle.io/randomcrispy/inate-hipster)
 inate-hipster
 =============
 
