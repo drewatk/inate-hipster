@@ -37,9 +37,9 @@ void Sprite::free()
 	texture.free();
 }
 
-void Sprite::render(SDL_Renderer* renderer, SDL_Rect* clip)
+void Sprite::render(SDL_Renderer* renderer, SDL_Rect& camera, SDL_Rect* clip)
 {
-	texture.render((int)posX, (int)posY, renderer, clip, angle, center, flip);
+	texture.render((int)posX - camera.x, (int)posY - camera.y, renderer, clip, angle, center, flip);
 }
 
 void Sprite::move(SDL_Rect& wall)

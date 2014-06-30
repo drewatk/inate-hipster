@@ -36,7 +36,7 @@ const int LEVEL_HEIGHT = 3877;
 bool init();
 bool loadMedia();
 void close();
-void cameraMove(SDL_Rect camera, Sprite ship);
+void cameraMove(SDL_Rect& camera, Sprite& ship);
 
 int main(int argc, char* argv[])
 {
@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
 	//set text color to black
 	SDL_Color textColor = { 0xff, 0xff, 0xff, 0xff };
 
-	mothershipSprite.setPos((SCREEN_WIDTH - mothershipSprite.getWidth()) / 2, (SCREEN_HEIGHT - mothershipSprite.getHeight()) / 2);
+	mothershipSprite.setPos(0,0);
 
 	//FPS timer initialization
 	Timer fpsTimer;
@@ -108,14 +108,16 @@ int main(int argc, char* argv[])
 			printf("Unable to render FPS texture!\n");
 		FPSwords.render(20, 20, renderer);
 
+		cameraMove(camera, mothershipSprite);
+
 		//Clear the screen
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 		SDL_RenderClear(renderer);
-				
+
 		//render the words and background
-		backgroundTexture.render(0, 0, renderer);
+		backgroundTexture.render(0, 0, renderer, &camera);
 		FPSwords.render(20, 20, renderer);
-		mothershipSprite.render(renderer);
+		mothershipSprite.render(renderer, camera);
 		
 		//render
 		SDL_RenderPresent(renderer);
@@ -221,7 +223,7 @@ bool checkCol(SDL_Rect box1, SDL_Rect box2)
 		return false;
 }
 
-void cameraMove(SDL_Rect camera, Sprite ship)
+void cameraMove(SDL_Rect& camera, Sprite& ship)
 {
 	//Center the camera over the ship
 	camera.x = (ship.getX() + ship.getWidth() / 2) - SCREEN_WIDTH / 2;

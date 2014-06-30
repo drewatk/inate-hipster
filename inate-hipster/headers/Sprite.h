@@ -13,7 +13,7 @@ public:
 	Sprite();
 	~Sprite();
 	bool load(std::string filePath, SDL_Renderer* renderer);
-	void render(SDL_Renderer* renderer, SDL_Rect* clip = NULL);
+	void render(SDL_Renderer* renderer, SDL_Rect& camera, SDL_Rect* clip = NULL);
 	void move(SDL_Rect& wall);
 	void handleEvent(SDL_Event& e);
 	void setPos(int x, int y);
