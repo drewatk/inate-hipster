@@ -25,7 +25,7 @@ Sprite mothershipSprite;
 
 //Screen Constants
 const int SCREEN_WIDTH = 1920, SCREEN_HEIGHT = 1080;
-const int SCREEN_FPS = 500;
+const int SCREEN_FPS = 10000000;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 //Level constants
@@ -85,6 +85,7 @@ int main(int argc, char* argv[])
 			{
 				quit = true;
 			}
+			mothershipSprite.handleEvent(e);
 
 		}
 		//start the frame cap timer
@@ -108,7 +109,7 @@ int main(int argc, char* argv[])
 			printf("Unable to render FPS texture!\n");
 		FPSwords.render(20, 20, renderer);
 
-		mothershipSprite.handleEvent(e);
+		
 		mothershipSprite.move(wall);
 		cameraMove(camera, mothershipSprite);
 

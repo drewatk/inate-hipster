@@ -63,16 +63,16 @@ void Sprite::handleEvent(SDL_Event& e)
 	{
 		switch (e.key.keysym.sym)
 		{
-		case SDLK_UP:
+		case SDLK_w:
 			velY -= SPRITE_MAX_ACCEL;
 			break;
-		case SDLK_DOWN:
+		case SDLK_s:
 			velY += SPRITE_MAX_ACCEL;
 			break;
-		case SDLK_LEFT:
+		case SDLK_a:
 			velX -= SPRITE_MAX_ACCEL;
 			break;
-		case SDLK_RIGHT:
+		case SDLK_d:
 			velX += SPRITE_MAX_ACCEL;
 			break;
 		default:
