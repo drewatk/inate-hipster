@@ -25,7 +25,7 @@ Sprite mothershipSprite;
 
 //Screen Constants
 const int SCREEN_WIDTH = 1920, SCREEN_HEIGHT = 1080;
-const int SCREEN_FPS = 120;
+const int SCREEN_FPS = 500;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 //Level constants
@@ -108,6 +108,8 @@ int main(int argc, char* argv[])
 			printf("Unable to render FPS texture!\n");
 		FPSwords.render(20, 20, renderer);
 
+		mothershipSprite.handleEvent(e);
+		mothershipSprite.move(wall);
 		cameraMove(camera, mothershipSprite);
 
 		//Clear the screen
@@ -152,7 +154,7 @@ bool init()
 		return false;
 	}
 	else
-		wall = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+		wall = { 0, 0, LEVEL_WIDTH, LEVEL_HEIGHT};
 
 	//Create Renderer
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED /*| SDL_RENDERER_PRESENTVSYNC*/);
