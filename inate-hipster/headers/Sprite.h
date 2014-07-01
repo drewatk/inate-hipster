@@ -15,8 +15,8 @@ public:
 	bool load(std::string filePath, SDL_Renderer* renderer);
 	void render(SDL_Renderer* renderer, SDL_Rect& camera, SDL_Rect* clip = NULL);
 	void move(SDL_Rect& wall);
-	void handleEvent(SDL_Event& e);
 	void setPos(int x, int y);
+	void setMass(int mass);
 	void free();
 	int getWidth();
 	int getHeight();
@@ -25,22 +25,25 @@ public:
 
 	SDL_Rect getColBox();
 
-private:
+protected:
 	Texture texture;
 	SDL_Rect colBox;
 
+	int mass;
 	float posX, posY;
 	float velX, velY;
+	float forceX, forceY;
 	
 	//rotation variables
 	double angle;
 	SDL_Point* center;
 	SDL_RendererFlip flip;
 
-
 	Timer moveTimer;
 
 	const int SPRITE_MAX_ACCEL = 10;
+
+	
 };
 
 #endif

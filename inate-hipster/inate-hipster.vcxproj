@@ -70,11 +70,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\PlayerShip.h" />
     <ClInclude Include="headers\Sprite.h" />
     <ClInclude Include="headers\Texture.h" />
     <ClInclude Include="headers\Timer.h" />

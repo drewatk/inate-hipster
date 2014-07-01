@@ -1,7 +1,7 @@
 #include "headers/Sprite.h"
 
 
-Sprite::Sprite() : texture(), posX(0), posY(0), velX(0), velY(0), colBox({ posX, posY, 0, 0 }), moveTimer(), angle(0), center(NULL), flip(SDL_FLIP_NONE)
+Sprite::Sprite() : texture(), posX(0), posY(0), velX(0), velY(0), forceX(0), forceY(0), colBox({ posX, posY, 0, 0 }), moveTimer(), angle(0), center(NULL), flip(SDL_FLIP_NONE), mass(1)
 {
 }
 
@@ -53,52 +53,11 @@ void Sprite::move(SDL_Rect& wall)
 
 	posX += velX * timesincemove;
 	posY += velY * timesincemove;
+	velX += (forceX / mass) * timesincemove;
+	velY += (forceY / mass) * timesincemove;
+	
 	moveTimer.start();
 
-}
-
-void Sprite::handleEvent(SDL_Event& e)
-{
-	if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
-	{
-		switch (e.key.keysym.sym)
-		{
-		case SDLK_w:
-			velY -= SPRITE_MAX_ACCEL;
-			break;
-		case SDLK_s:
-			velY += SPRITE_MAX_ACCEL;
-			break;
-		case SDLK_a:
-			velX -= SPRITE_MAX_ACCEL;
-			break;
-		case SDLK_d:
-			velX += SPRITE_MAX_ACCEL;
-			break;
-		case SDLK_q:
-			angle -= 5;
-			break;
-		case SDLK_e:
-			angle += 5;
-			break;
-		default:
-			break;
-		}
-	}
-	else if (e.type == SDL_KEYDOWN && e.key.repeat != 0)
-	{
-		switch (e.key.keysym.sym)
-		{
-		case SDLK_q:
-			angle -= 5;
-			break;
-		case SDLK_e:
-			angle += 5;
-			break;
-		default:
-			break;
-		}
-	}
 }
 
 int Sprite::getWidth()
@@ -123,4 +82,9 @@ int Sprite::getY()
 SDL_Rect Sprite::getColBox()
 {
 	return colBox;
+}
+
+void Sprite::setMass(int mass)
+{
+	mass = mass;
 }

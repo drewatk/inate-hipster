@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string>
 
+#include "headers/PlayerShip.h"
 #include "headers/Sprite.h"
 #include "headers/Texture.h"
 #include "headers/Timer.h"
@@ -21,11 +22,11 @@ TTF_Font* font = NULL;
 //textures & sprites
 Texture FPSwords;
 Texture backgroundTexture;
-Sprite mothershipSprite;
+PlayerShip mothershipSprite;
 
 //Screen Constants
 const int SCREEN_WIDTH = 1920, SCREEN_HEIGHT = 1080;
-const int SCREEN_FPS = 10000000;
+const int SCREEN_FPS = 120;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 //Level constants
@@ -85,7 +86,6 @@ int main(int argc, char* argv[])
 			{
 				quit = true;
 			}
-			mothershipSprite.handleEvent(e);
 
 		}
 		//start the frame cap timer
@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
 			printf("Unable to render FPS texture!\n");
 		FPSwords.render(20, 20, renderer);
 
-		
+		mothershipSprite.handleKeyboard();
 		mothershipSprite.move(wall);
 		cameraMove(camera, mothershipSprite);
 
