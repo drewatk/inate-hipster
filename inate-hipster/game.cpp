@@ -109,6 +109,7 @@ int main(int argc, char* argv[])
 			printf("Unable to render FPS texture!\n");
 		FPSwords.render(20, 20, renderer);
 
+		//handle sprite and camera movement
 		mothershipSprite.handleKeyboard();
 		mothershipSprite.move(wall);
 		cameraMove(camera, mothershipSprite);

@@ -16,7 +16,7 @@ public:
 	void render(SDL_Renderer* renderer, SDL_Rect& camera, SDL_Rect* clip = NULL);
 	void move(SDL_Rect& wall);
 	void setPos(int x, int y);
-	void setMass(int mass);
+	void setMass(int usermass);
 	void free();
 	int getWidth();
 	int getHeight();
@@ -40,10 +40,6 @@ protected:
 	SDL_RendererFlip flip;
 
 	Timer moveTimer;
-
-	const int SPRITE_MAX_ACCEL = 10;
-
-	
 };
 
 #endif

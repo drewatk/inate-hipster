@@ -84,7 +84,7 @@ SDL_Rect Sprite::getColBox()
 	return colBox;
 }
 
-void Sprite::setMass(int mass)
+void Sprite::setMass(int usermass)
 {
-	mass = mass;
+	mass = usermass;
 }
