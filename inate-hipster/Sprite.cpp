@@ -75,6 +75,26 @@ void Sprite::handleEvent(SDL_Event& e)
 		case SDLK_d:
 			velX += SPRITE_MAX_ACCEL;
 			break;
+		case SDLK_q:
+			angle -= 5;
+			break;
+		case SDLK_e:
+			angle += 5;
+			break;
+		default:
+			break;
+		}
+	}
+	else if (e.type == SDL_KEYDOWN && e.key.repeat != 0)
+	{
+		switch (e.key.keysym.sym)
+		{
+		case SDLK_q:
+			angle -= 5;
+			break;
+		case SDLK_e:
+			angle += 5;
+			break;
 		default:
 			break;
 		}
