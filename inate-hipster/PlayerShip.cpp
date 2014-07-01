@@ -3,7 +3,7 @@
 #include "headers/PlayerShip.h"
 
 
-PlayerShip::PlayerShip() : thrusterForce(30)
+PlayerShip::PlayerShip() : thrusterForce(100)
 {
 }
 
