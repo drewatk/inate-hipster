@@ -4,7 +4,14 @@ inate-hipster
 
 Soon to be the best game ever
 
+#####Controls (Temporary)
+-wasd for horizontal and vertical motion
+-q and e for rotation
+
+
+
 Credits:
+-----------------
 
 "Sansus Webissimo" by Sergiy S. Tkachenko is licenced under CC-BY 4.0
 http://openfontlibrary.org/en/font/sansus-webissimo
