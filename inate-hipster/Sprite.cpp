@@ -1,7 +1,7 @@
 #include "headers/Sprite.h"
 
 
-Sprite::Sprite() : texture(), posX(0), posY(0), velX(0), velY(0), forceX(0), forceY(0), colBox({ posX, posY, 0, 0 }), moveTimer(), angle(0), center(NULL), flip(SDL_FLIP_NONE), mass(1)
+Sprite::Sprite() : texture(), posX(0), posY(0), velX(0), velY(0), forceX(0), forceY(0), colBox({ posX, posY, 0, 0 }), moveTimer(), angle(0), center(NULL), flip(SDL_FLIP_NONE), mass(1), angAcc(0), angVel(0)
 {
 }
 
@@ -46,15 +46,23 @@ void Sprite::move(SDL_Rect& wall)
 {
 	float timesincemove = moveTimer.getTicks() / 1000.f;
 
+	//if it hit a wall
 	if (posX < -1) { posX = 0; velX *= -1; }
 	if (posX + getWidth() > wall.w + 1) { posX = wall.w - getWidth(); velX *= -1; }
 	if (posY < -1) { posY = 0; velY *= -1; }
 	if (posY + getHeight() > wall.h + 1) { posY = wall.h - getHeight(); velY *= -1; }
 
+	//move
 	posX += velX * timesincemove;
 	posY += velY * timesincemove;
+	angle += angVel * timesincemove;
+	
+	//change velocity on force
 	velX += (forceX / mass) * timesincemove;
 	velY += (forceY / mass) * timesincemove;
+	angVel += angAcc * timesincemove;
+	
+	
 	
 	moveTimer.start();
 

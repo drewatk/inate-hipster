@@ -21,17 +21,17 @@ void PlayerShip::handleKeyboard()
 		forceX = thrusterForce * cos(angle * 3.14159265 / 180.0);
 		forceY = thrusterForce * sin(angle * 3.14159265 / 180.0);
 	}
-	if (!state[SDL_SCANCODE_SPACE])
+	else
 	{
 		forceX = 0;
 		forceY = 0;
 	}
+	
+	//set rotation acceleration based on q and e
 	if (state[SDL_SCANCODE_Q])
-	{
-		angle -= 1;
-	}
-	if (state[SDL_SCANCODE_E])
-	{
-		angle += 1;
-	}
+		angVel = -50;
+	else if (state[SDL_SCANCODE_E])
+		angVel = 50;
+	else
+		angVel = 0;
 }

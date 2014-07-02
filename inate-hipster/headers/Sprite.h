@@ -29,6 +29,7 @@ protected:
 	Texture texture;
 	SDL_Rect colBox;
 
+	//translational variables
 	int mass;
 	float posX, posY;
 	float velX, velY;
@@ -38,6 +39,9 @@ protected:
 	double angle;
 	SDL_Point* center;
 	SDL_RendererFlip flip;
+	float angVel;
+	float angAcc;
+	
 
 	Timer moveTimer;
 };

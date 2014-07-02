@@ -26,7 +26,7 @@ PlayerShip mothershipSprite;
 
 //Screen Constants
 const int SCREEN_WIDTH = 1920, SCREEN_HEIGHT = 1080;
-const int SCREEN_FPS = 120;
+const int SCREEN_FPS = 12000000;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 //Level constants
