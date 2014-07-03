@@ -1,6 +1,6 @@
 #include <cmath>
 
-#include "headers/PlayerShip.h"
+#include "PlayerShip.h"
 
 
 PlayerShip::PlayerShip() : thrusterForce(100)

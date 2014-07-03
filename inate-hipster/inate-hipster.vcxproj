@@ -76,12 +76,6 @@
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="headers\PlayerShip.h" />
-    <ClInclude Include="headers\Sprite.h" />
-    <ClInclude Include="headers\Texture.h" />
-    <ClInclude Include="headers\Timer.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="sprites\background.tif" />
     <Image Include="sprites\logo1.png" />
     <Image Include="sprites\man.png" />
@@ -91,6 +85,12 @@
   <ItemGroup>
     <Font Include="fonts\Sansus Webissimo-Italic.ttf" />
     <Font Include="fonts\Sansus Webissimo-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PlayerShip.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,4 @@
-#include "headers/Sprite.h"
+#include "Sprite.h"
 
 
 Sprite::Sprite() : texture(), posX(0), posY(0), velX(0), velY(0), forceX(0), forceY(0), colBox({ posX, posY, 0, 0 }), moveTimer(), angle(0), center(NULL), flip(SDL_FLIP_NONE), mass(1), angAcc(0), angVel(0)

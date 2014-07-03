@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <string>
 
-#include "headers/PlayerShip.h"
-#include "headers/Sprite.h"
-#include "headers/Texture.h"
-#include "headers/Timer.h"
+#include "PlayerShip.h"
+#include "Sprite.h"
+#include "Texture.h"
+#include "Timer.h"
 
 //Window and Surface Pointers
 SDL_Window* window = NULL;

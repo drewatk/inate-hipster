@@ -1,5 +1,6 @@
 #pragma once
-#include "headers\Sprite.h"
+#include "Sprite.h"
+
 class PlayerShip :
 	public Sprite
 {
