@@ -29,9 +29,9 @@ void PlayerShip::handleKeyboard()
 	
 	//set rotation acceleration based on q and e
 	if (state[SDL_SCANCODE_Q])
-		angVel = -100;
+		angVel = -200;
 	else if (state[SDL_SCANCODE_E])
-		angVel = 100;
+		angVel = 200;
 	else
 		angVel = 0;
 }

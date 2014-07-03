@@ -55,7 +55,10 @@
     <Image Include="sprites\ships.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="sprites\Titan.png">
+    <Image Include="sprites\medspeedster.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprites\logo1.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

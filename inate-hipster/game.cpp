@@ -23,6 +23,7 @@ TTF_Font* font = NULL;
 Texture FPSwords;
 Texture backgroundTexture;
 PlayerShip mothershipSprite;
+Sprite banana;
 
 //Screen Constants
 const int SCREEN_WIDTH = 1920, SCREEN_HEIGHT = 1080;
@@ -66,7 +67,8 @@ int main(int argc, char* argv[])
 	//set text color to black
 	SDL_Color textColor = { 0xff, 0xff, 0xff, 0xff };
 
-	mothershipSprite.setPos(0,0);
+	mothershipSprite.setPos(0, 0);
+	banana.setPos(LEVEL_WIDTH / 2, LEVEL_HEIGHT / 2);
 
 	//FPS timer initialization
 	Timer fpsTimer;
@@ -111,7 +113,7 @@ int main(int argc, char* argv[])
 
 		//handle sprite and camera movement
 		mothershipSprite.handleKeyboard();
-		mothershipSprite.move(wall);
+		mothershipSprite.move(wall, banana.getColBox());
 		cameraMove(camera, mothershipSprite);
 
 		//Clear the screen
@@ -121,6 +123,7 @@ int main(int argc, char* argv[])
 		//render the words and background
 		backgroundTexture.render(0, 0, renderer, &camera);
 		FPSwords.render(20, 20, renderer);
+		banana.render(renderer, camera);
 		mothershipSprite.render(renderer, camera);
 		
 		//render
@@ -194,7 +197,8 @@ bool loadMedia()
 	bool success = true;
 	
 	backgroundTexture.loadFromFile("sprites/background.tif", renderer);
-	mothershipSprite.load("sprites/Titan.png", renderer);
+	mothershipSprite.load("sprites/medspeedster.png", renderer);
+	banana.load("sprites/logo1.png", renderer);
 
 	return success;
 }
@@ -214,17 +218,6 @@ void close()
 
 	//Quit SDL subsystems
 	SDL_Quit();
-}
-
-bool checkCol(SDL_Rect box1, SDL_Rect box2)
-{
-	if (box1.x < box2.x + box2.w &&
-		box1.x + box1.w > box2.x &&
-		box1.y < box2.y + box2.h &&
-		box1.h + box1.y > box2.y) 
-		return true;
-	else
-		return false;
 }
 
 void cameraMove(SDL_Rect& camera, Sprite& ship)
