@@ -14,7 +14,7 @@ public:
 	~Sprite();
 	bool load(std::string filePath, SDL_Renderer* renderer);
 	void render(SDL_Renderer* renderer, SDL_Rect& camera, SDL_Rect* clip = NULL);
-	void Sprite::move(SDL_Rect& wall, SDL_Rect box);
+	void move(SDL_Rect& wall, SDL_Rect box);
 	void setPos(int x, int y);
 	void setMass(int usermass);
 	void free();
