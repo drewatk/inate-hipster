@@ -10,7 +10,7 @@ Texture::~Texture()
 	free();
 }
 
-bool Texture::loadFromFile(std::string path, SDL_Renderer* renderer)
+bool Texture::loadFromFile(std::string path)
 {
 	
 	//Gets rid of old texture
@@ -64,7 +64,7 @@ void Texture::free()
 	}
 }
 
-void Texture::render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
+void Texture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
 {
 	SDL_Rect renderQuad = { x, y, width, height };
 
@@ -74,6 +74,19 @@ void Texture::render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip, doubl
 		renderQuad.h = clip->h;
 	}
 	
+	SDL_RenderCopyEx(renderer, texture, clip, &renderQuad, angle, center, flip);
+}
+
+void Texture::render(SDL_Point point, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
+{
+	SDL_Rect renderQuad = { point.x, point.y, width, height };
+
+	if (clip != NULL)
+	{
+		renderQuad.w = clip->w;
+		renderQuad.h = clip->h;
+	}
+
 	SDL_RenderCopyEx(renderer, texture, clip, &renderQuad, angle, center, flip);
 }
 
@@ -88,7 +101,7 @@ int Texture::getHeight()
 }
 
 #ifdef _SDL_TTF_H
-bool Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor, TTF_Font* font, SDL_Renderer* renderer)
+bool Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor, TTF_Font* font)
 {
 	free();
 
