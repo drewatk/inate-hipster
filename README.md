@@ -1,4 +1,3 @@
-
 inate-hipster
 =============
 
@@ -6,6 +5,7 @@ Soon to be the best game ever
 
 #####Controls (Temporary)
 -wasd for horizontal and vertical motion
+
 -q and e for rotation
 
 
