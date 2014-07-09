@@ -1,3 +1,4 @@
+#include <Box2D/Box2D.h>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -5,40 +6,34 @@
 #include <stdio.h>
 #include <string>
 
+#include "Entity.h"
 #include "PlayerShip.h"
-#include "Sprite.h"
+#include "screenConst.h"
 #include "Texture.h"
 #include "Timer.h"
-
-//Window and Surface Pointers
-SDL_Window* window = NULL;
-SDL_Surface* screenSurface = NULL;
-SDL_Renderer* renderer = NULL;
-SDL_Rect wall;
+#include "worldConst.h"
 
 //Global font
 TTF_Font* font = NULL;
 
-//textures & sprites
+//textures
 Texture FPSwords;
 Texture backgroundTexture;
-PlayerShip mothershipSprite;
-Sprite banana;
+PlayerShip ship;
 
 //Screen Constants
-const int SCREEN_WIDTH = 1920, SCREEN_HEIGHT = 1080;
-const int SCREEN_FPS = 12000000;
+const int SCREEN_FPS = 1000000;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
-//Level constants
-const int LEVEL_WIDTH = 3622;
-const int LEVEL_HEIGHT = 3877;
+//Box2d time constants
+const float32 timeStep = 1.0f / 60.0f;
+const int32 velocityIterations = 6;
+const int32 positionIterations = 2;
 
 //Prototypes
 bool init();
 bool loadMedia();
 void close();
-void cameraMove(SDL_Rect& camera, Sprite& ship);
 
 int main(int argc, char* argv[])
 {
@@ -60,15 +55,9 @@ int main(int argc, char* argv[])
 
 	//event handler
 	SDL_Event e;
-	
-	//camera rectangle
-	SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
 	//set text color to black
 	SDL_Color textColor = { 0xff, 0xff, 0xff, 0xff };
-
-	mothershipSprite.setPos(0, 0);
-	banana.setPos(LEVEL_WIDTH / 2, LEVEL_HEIGHT / 2);
 
 	//FPS timer initialization
 	Timer fpsTimer;
@@ -79,6 +68,10 @@ int main(int argc, char* argv[])
 
 	//frame cap timer
 	Timer capTimer;
+
+	//accumulator for physics steps
+	double accumulator = 0.0;
+	Timer accTimer;
 
 	while (!quit)
 	{
@@ -101,31 +94,40 @@ int main(int argc, char* argv[])
 			countedFrames = 0;
 		}
 		
+		//Accumulator 
+		accumulator += (accTimer.getTicks())/1000.f;
+		accTimer.start();
 
+		while (accumulator >= timeStep)
+		{
+			worldptr->Step(timeStep, velocityIterations, positionIterations);
+			accumulator -= timeStep;
+
+		}
+
+		FPSwords.render(20, 20);
 		//assemble the fps string
 		timeText.str("");
 		timeText << "FPS:" << fpsShown;
 		
 		//render text
-		if (!FPSwords.loadFromRenderedText(timeText.str().c_str(), textColor, font, renderer))
-			printf("Unable to render FPS texture!\n");
-		FPSwords.render(20, 20, renderer);
+		if (!FPSwords.loadFromRenderedText(timeText.str().c_str(), textColor, font))
+			printf("Unable to load the FPS texture!\n");
 
 		//handle sprite and camera movement
-		mothershipSprite.handleKeyboard();
-		mothershipSprite.move(wall, banana.getColBox());
-		cameraMove(camera, mothershipSprite);
+		ship.cameraMove();
+		ship.handleKeyboard();
 
 		//Clear the screen
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 
 		//render the words and background
-		backgroundTexture.render(0, 0, renderer, &camera);
-		FPSwords.render(20, 20, renderer);
-		banana.render(renderer, camera);
-		mothershipSprite.render(renderer, camera);
-		
+		backgroundTexture.render(0, 0, ship.getCamera());
+		FPSwords.render(20, 20);
+		ship.render();
+
+
 		//render
 		SDL_RenderPresent(renderer);
 		countedFrames++;
@@ -158,8 +160,6 @@ bool init()
 		printf("Could not make window SDL Error:%s", SDL_GetError());
 		return false;
 	}
-	else
-		wall = { 0, 0, LEVEL_WIDTH, LEVEL_HEIGHT};
 
 	//Create Renderer
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED /*| SDL_RENDERER_PRESENTVSYNC*/);
@@ -187,7 +187,10 @@ bool init()
 		return false;
 	}
 	font = TTF_OpenFont("fonts/Sansus Webissimo-Regular.ttf", 20);
-					
+	
+	//Create B2D world
+	b2Vec2 gravity(0.0f, 0.0f);
+	worldptr = new b2World(gravity);
 	
 	return true;
 }
@@ -196,10 +199,9 @@ bool loadMedia()
 {
 	bool success = true;
 	
-	backgroundTexture.loadFromFile("sprites/background.tif", renderer);
-	mothershipSprite.load("sprites/medspeedster.png", renderer);
-	banana.load("sprites/logo1.png", renderer);
-
+	backgroundTexture.loadFromFile("sprites/background.tif");
+	ship.load("sprites/medspeedster.png");
+	
 	return success;
 }
 
@@ -218,29 +220,7 @@ void close()
 
 	//Quit SDL subsystems
 	SDL_Quit();
-}
 
-void cameraMove(SDL_Rect& camera, Sprite& ship)
-{
-	//Center the camera over the ship
-	camera.x = (ship.getX() + ship.getWidth() / 2) - SCREEN_WIDTH / 2;
-	camera.y = (ship.getY() + ship.getHeight() / 2) - SCREEN_HEIGHT / 2;
-
-	//Keep the camera in bounds
-	if (camera.x < 0)
-	{
-		camera.x = 0;
-	}
-	if (camera.y < 0)
-	{
-		camera.y = 0;
-	}
-	if (camera.x > LEVEL_WIDTH - camera.w)
-	{
-		camera.x = LEVEL_WIDTH - camera.w;
-	}
-	if (camera.y > LEVEL_HEIGHT - camera.h)
-	{
-		camera.y = LEVEL_HEIGHT - camera.h;
-	}
+	//Delete Box2d world
+	delete worldptr;
 }
