@@ -19,6 +19,7 @@ TTF_Font* font = NULL;
 //textures
 Texture FPSwords;
 Texture backgroundTexture;
+PlayerShip ship;
 
 //Screen Constants
 const int SCREEN_FPS = 1000000;
@@ -119,6 +120,7 @@ int main(int argc, char* argv[])
 
 		//handle sprite and camera movement
 		//cameraMove(camera, ship, shipTexture);
+		ship.handleKeyboard();
 
 		//Clear the screen
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -127,6 +129,8 @@ int main(int argc, char* argv[])
 		//render the words and background
 		backgroundTexture.render(0, 0, &camera);
 		FPSwords.render(20, 20);
+		ship.render();
+
 
 		//render
 		SDL_RenderPresent(renderer);
@@ -189,7 +193,7 @@ bool init()
 	font = TTF_OpenFont("fonts/Sansus Webissimo-Regular.ttf", 20);
 	
 	//Create B2D world
-	b2Vec2 gravity(0.0f, 1.0f);
+	b2Vec2 gravity(0.0f, 0.0f);
 	worldptr = new b2World(gravity);
 	
 	return true;
@@ -200,6 +204,7 @@ bool loadMedia()
 	bool success = true;
 	
 	backgroundTexture.loadFromFile("sprites/background.tif");
+	ship.load("sprites/medspeedster.png");
 	
 	return success;
 }

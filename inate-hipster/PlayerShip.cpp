@@ -17,17 +17,17 @@ void PlayerShip::handleKeyboard()
 	{
 		b2Vec2 force;
 		force.x = thrusterForce * cos(body->GetAngle());
-		force.x = thrusterForce * sin(body->GetAngle());
+		force.y = thrusterForce * sin(body->GetAngle());
 		body->ApplyForceToCenter(force, true);
 	}
 
 	//set rotation acceleration based on q and e
 	if (state[SDL_SCANCODE_Q])
 	{
-		body->ApplyTorque(thrusterTorque, true);
+		body->ApplyTorque(thrusterTorque * -1, true);
 	}
 	else if (state[SDL_SCANCODE_E])
 	{
-		body->ApplyTorque((thrusterTorque * -1), true);
+		body->ApplyTorque(thrusterTorque, true);
 	}
 }

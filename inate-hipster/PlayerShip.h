@@ -15,7 +15,7 @@ public:
 	void handleKeyboard();
 
 private:
-	float thrusterForce = 10.0f;
-	float thrusterTorque = 10.0f;
+	float thrusterForce = 0.1f;
+	float thrusterTorque = 1.0f;
 };
 
