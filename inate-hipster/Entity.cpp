@@ -21,7 +21,7 @@ bool Entity::load(std::string path)
 	
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(0.0f, 0.0f);
+	bodyDef.position.Set(20.0f, 20.0f);
 	body = worldptr->CreateBody(&bodyDef);
 	
 	b2PolygonShape dynamicBox;
@@ -42,7 +42,7 @@ bool Entity::load(std::string path)
 
 void Entity::render(SDL_Rect* clip)
 {
-	texture.render(worldToScreen(body->GetPosition()), clip, (double)body->GetAngle());	
+	texture.render(worldToScreen(body->GetPosition()), clip, (body->GetAngle()/3.14159265) * 180);	
 }
 
 
