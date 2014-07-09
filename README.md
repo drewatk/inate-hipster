@@ -5,6 +5,7 @@ Soon to be the best game ever
 
 #####Controls (Temporary)
 -space for thruster
+
 -q and e for rotation
 
 
@@ -18,4 +19,4 @@ http://openfontlibrary.org/en/font/sansus-webissimo
 Some photos credit NASA
 http://www.nasa.gov/audience/formedia/features/MP_Photo_Guidelines.html
 
-This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+Copyright 2014 Drew Atkinson, Phillip Thain, Ben Dvorak
