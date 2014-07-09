@@ -16,6 +16,6 @@ public:
 
 private:
 	float thrusterForce = 0.1f;
-	float thrusterTorque = 1.0f;
+	float thrusterTorque = 10.0f;
 };
 
