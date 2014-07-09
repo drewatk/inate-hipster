@@ -40,7 +40,7 @@ bool Entity::load(std::string path)
 	return true;
 }
 
-void Entity::render(SDL_Rect& camera, SDL_Rect* clip)
+void Entity::render(SDL_Rect* clip)
 {
 	texture.render(worldToScreen(body->GetPosition()), clip, (double)body->GetAngle(), &worldToScreen(body->GetWorldCenter()));	
 }

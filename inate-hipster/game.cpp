@@ -7,6 +7,7 @@
 #include <string>
 
 #include "Entity.h"
+#include "PlayerShip.h"
 #include "screenConst.h"
 #include "Texture.h"
 #include "Timer.h"

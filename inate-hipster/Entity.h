@@ -17,13 +17,12 @@ public:
 	~Entity();
 	
 	bool load(std::string path);
-	void render(SDL_Rect& camera, SDL_Rect* clip = NULL);
+	void render(SDL_Rect* clip = NULL);
 
-private:
-
-	SDL_Rect camera;
+protected:
 	b2Body* body;
 
+private:
 	Texture texture;
 };
 
