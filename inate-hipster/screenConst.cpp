@@ -19,3 +19,13 @@ float screenToWorld(int n)
 {
 	return n * METERS_PER_PIXEL;
 }
+
+double degToRad(double n)
+{
+	return (n * 3.14159265) / 180;
+}
+
+double radToDeg(double n)
+{
+	return (n / 3.14159265) * 180;
+}

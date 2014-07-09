@@ -42,7 +42,7 @@ bool Entity::load(std::string path)
 
 void Entity::render(SDL_Rect* clip)
 {
-	texture.render(worldToScreen(body->GetPosition()), clip, (body->GetAngle()/3.14159265) * 180);	
+	texture.render(worldToScreen(body->GetPosition()), clip, radToDeg(body->GetAngle()));	
 }
 
 

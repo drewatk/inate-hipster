@@ -11,3 +11,6 @@ SDL_Point worldToScreen(b2Vec2 vec);
 int worldToScreen(float n);
 
 float screenToWorld(int n);
+
+double degToRad(double n);
+double radToDeg(double n);
