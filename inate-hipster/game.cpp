@@ -101,6 +101,7 @@ int main(int argc, char* argv[])
 		while (accumulator >= timeStep)
 		{
 			worldptr->Step(timeStep, velocityIterations, positionIterations);
+			ship.handleKeyboard();
 			accumulator -= timeStep;
 
 		}
@@ -116,7 +117,7 @@ int main(int argc, char* argv[])
 
 		//handle sprite and camera movement
 		ship.cameraMove();
-		ship.handleKeyboard();
+		
 
 		//Clear the screen
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);

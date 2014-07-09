@@ -20,8 +20,8 @@ public:
 	void handleKeyboard();
 
 private:
-	float thrusterForce = 2.0f;
-	float thrusterTorque = 1.0f;
+	float thrusterForce = 100.0f;
+	float thrusterTorque = 100.0f;
 
 	SDL_Rect* camera;
 };
