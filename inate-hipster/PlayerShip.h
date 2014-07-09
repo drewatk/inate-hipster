@@ -12,6 +12,11 @@ public:
 	PlayerShip();
 	~PlayerShip();
 	
+	void cameraMove();
+	SDL_Rect* getCamera();
+	
+	void render(SDL_Rect* clip = NULL);
+
 	void handleKeyboard();
 
 private:

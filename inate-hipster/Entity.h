@@ -21,8 +21,6 @@ public:
 
 protected:
 	b2Body* body;
-
-private:
 	Texture texture;
 };
 

@@ -34,7 +34,6 @@ const int32 positionIterations = 2;
 bool init();
 bool loadMedia();
 void close();
-void cameraMove(SDL_Rect& camera, b2Body* ship, Texture texture);
 
 int main(int argc, char* argv[])
 {
@@ -56,9 +55,6 @@ int main(int argc, char* argv[])
 
 	//event handler
 	SDL_Event e;
-	
-	//camera rectangle
-	SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
 	//set text color to black
 	SDL_Color textColor = { 0xff, 0xff, 0xff, 0xff };
@@ -119,7 +115,7 @@ int main(int argc, char* argv[])
 			printf("Unable to load the FPS texture!\n");
 
 		//handle sprite and camera movement
-		//cameraMove(camera, ship, shipTexture);
+		ship.cameraMove();
 		ship.handleKeyboard();
 
 		//Clear the screen
@@ -127,7 +123,7 @@ int main(int argc, char* argv[])
 		SDL_RenderClear(renderer);
 
 		//render the words and background
-		backgroundTexture.render(0, 0, &camera);
+		backgroundTexture.render(0, 0, ship.getCamera());
 		FPSwords.render(20, 20);
 		ship.render();
 
@@ -227,29 +223,4 @@ void close()
 
 	//Delete Box2d world
 	delete worldptr;
-}
-
-void cameraMove(SDL_Rect& camera, b2Body* ship, Texture texture)
-{
-	//Center the camera over the ship
-	camera.x = (ship->GetPosition().x + texture.getWidth() / 2) - SCREEN_WIDTH / 2;
-	camera.y = (ship->GetPosition().y + texture.getHeight() / 2) - SCREEN_HEIGHT / 2;
-
-	//Keep the camera in bounds
-	if (camera.x < 0)
-	{
-		camera.x = 0;
-	}
-	if (camera.y < 0)
-	{
-		camera.y = 0;
-	}
-	if (camera.x > LEVEL_WIDTH - camera.w)
-	{
-		camera.x = LEVEL_WIDTH - camera.w;
-	}
-	if (camera.y > LEVEL_HEIGHT - camera.h)
-	{
-		camera.y = LEVEL_HEIGHT - camera.h;
-	}
 }
