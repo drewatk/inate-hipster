@@ -19,7 +19,4 @@ http://openfontlibrary.org/en/font/sansus-webissimo
 Some photos credit NASA
 http://www.nasa.gov/audience/formedia/features/MP_Photo_Guidelines.html
 
-"Titan Battlecruiser" by kanadaj is licensed under CC-BY-SA 3.0
-http://opengameart.org/content/titan-battlecruiser
-
-This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
+Copyright Drew Atkinson, Philip Thain, Ben Dvorak
