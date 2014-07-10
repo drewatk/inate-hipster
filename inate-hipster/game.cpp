@@ -135,8 +135,8 @@ int main(int argc, char* argv[])
 		banana.render(ship.getCamera());
 		ship.render(ship.getCamera());
 		SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0x64);
-		ship.renderHitbox(ship.getCamera());
-		banana.renderHitbox(ship.getCamera());
+		ship.renderAABB(ship.getCamera());
+		banana.renderAABB(ship.getCamera());
 
 
 		//render

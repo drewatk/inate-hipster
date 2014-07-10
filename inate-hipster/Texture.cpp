@@ -74,6 +74,12 @@ void Texture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* cent
 		renderQuad.h = clip->h;
 	}
 	
+	if (center == NULL)
+	{
+		center = new SDL_Point;
+		center->x = 0;
+		center->y = 0;
+	}
 	SDL_RenderCopyEx(renderer, texture, clip, &renderQuad, angle, center, flip);
 }
 

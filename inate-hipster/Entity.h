@@ -20,7 +20,7 @@ public:
 	void render(SDL_Rect* camera, SDL_Rect* clip = NULL);
 	
 	//for debugging
-	void renderHitbox(SDL_Rect* camera);
+	void renderAABB(SDL_Rect* camera);
 
 	void setPos(b2Vec2 vec);
 

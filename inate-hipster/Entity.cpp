@@ -25,7 +25,9 @@ bool Entity::load(std::string path)
 	body = worldptr->CreateBody(&bodyDef);
 	
 	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox(screenToWorld(texture.getWidth()) / 2, screenToWorld(texture.getHeight()) / 2);
+	b2Vec2 widthAndHeight(screenToWorld(texture.getWidth()), screenToWorld(texture.getHeight()));
+	widthAndHeight *= 0.5f;
+	dynamicBox.SetAsBox(widthAndHeight.x, widthAndHeight.y, widthAndHeight, 0.0f);
 	
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &dynamicBox;
@@ -47,7 +49,7 @@ void Entity::render(SDL_Rect* camera, SDL_Rect* clip)
 	texture.render(worldToScreen(body->GetPosition().x) - camera->x, worldToScreen(body->GetPosition().y) - camera->y, clip, radToDeg(body->GetAngle()));
 }
 
-void Entity::renderHitbox(SDL_Rect* camera)
+void Entity::renderAABB(SDL_Rect* camera)
 {
 	SDL_Rect* hitbox = new SDL_Rect;
 
@@ -67,6 +69,7 @@ void Entity::renderHitbox(SDL_Rect* camera)
 	SDL_RenderFillRect(renderer, hitbox);
 
 	delete hitbox;
+	fixture = NULL;
 }
 
 void Entity::setPos(b2Vec2 vec)
