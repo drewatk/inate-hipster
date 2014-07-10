@@ -22,6 +22,8 @@ public:
 	//for debugging
 	void renderHitbox(SDL_Rect* camera);
 
+	void setPos(b2Vec2 vec);
+
 protected:
 	b2Body* body;
 	Texture texture;

@@ -20,6 +20,7 @@ TTF_Font* font = NULL;
 Texture FPSwords;
 Texture backgroundTexture;
 PlayerShip ship;
+Entity banana;
 
 //Screen Constants
 const int SCREEN_FPS = 1000000;
@@ -75,6 +76,9 @@ int main(int argc, char* argv[])
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
+	b2Vec2 bananapos(50, 50);
+	banana.setPos(bananapos);
+
 	while (!quit)
 	{
 		while (SDL_PollEvent(&e) != 0)
@@ -122,15 +126,17 @@ int main(int argc, char* argv[])
 		
 
 		//Clear the screen
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(renderer);
 
 		//render the words and background
 		backgroundTexture.render(0, 0, ship.getCamera());
 		FPSwords.render(20, 20);
+		banana.render(ship.getCamera());
 		ship.render(ship.getCamera());
 		SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0x64);
 		ship.renderHitbox(ship.getCamera());
+		banana.renderHitbox(ship.getCamera());
 
 
 		//render
@@ -206,6 +212,8 @@ bool loadMedia()
 	if (!backgroundTexture.loadFromFile("sprites/background.tif"))
 		return false;
 	if (!ship.load("sprites/medspeedster.png"))
+		return false;
+	if (!banana.load("sprites/logo1.png"))
 		return false;
 	
 	return true;

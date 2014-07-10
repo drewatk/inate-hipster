@@ -68,3 +68,8 @@ void Entity::renderHitbox(SDL_Rect* camera)
 
 	delete hitbox;
 }
+
+void Entity::setPos(b2Vec2 vec)
+{
+	body->SetTransform(vec, body->GetAngle());
+}
