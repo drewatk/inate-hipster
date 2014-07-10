@@ -130,13 +130,14 @@ int main(int argc, char* argv[])
 		SDL_RenderClear(renderer);
 
 		//render the words and background
-		backgroundTexture.render(0, 0, ship.getCamera());
+		SDL_Rect* camera = ship.getCamera();
+		backgroundTexture.render(0, 0, camera);
 		FPSwords.render(20, 20);
-		banana.render(ship.getCamera());
-		ship.render(ship.getCamera());
-		SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0x64);
-		ship.renderAABB(ship.getCamera());
-		banana.renderAABB(ship.getCamera());
+		banana.render(camera);
+		ship.render(camera);
+		//SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0x64);
+		//ship.renderAABB(camera);
+		//banana.renderAABB(camera);
 
 
 		//render
