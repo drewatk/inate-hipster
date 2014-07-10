@@ -73,6 +73,8 @@ int main(int argc, char* argv[])
 	double accumulator = 0.0;
 	Timer accTimer;
 
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+
 	while (!quit)
 	{
 		while (SDL_PollEvent(&e) != 0)
@@ -120,15 +122,15 @@ int main(int argc, char* argv[])
 		
 
 		//Clear the screen
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
 		SDL_RenderClear(renderer);
 
 		//render the words and background
 		backgroundTexture.render(0, 0, ship.getCamera());
 		FPSwords.render(20, 20);
-		ship.render();
-		SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0xA);
-		ship.renderHitbox();
+		ship.render(ship.getCamera());
+		SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0x64);
+		ship.renderHitbox(ship.getCamera());
 
 
 		//render

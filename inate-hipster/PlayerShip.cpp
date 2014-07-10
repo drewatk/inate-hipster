@@ -67,8 +67,3 @@ SDL_Rect* PlayerShip::getCamera()
 {
 	return camera;
 }
-
-void PlayerShip::render(SDL_Rect* clip)
-{
-	texture.render(worldToScreen(body->GetPosition().x) - camera->x, worldToScreen(body->GetPosition().y) - camera->y, clip, radToDeg(body->GetAngle()));
-}

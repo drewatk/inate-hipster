@@ -42,12 +42,12 @@ bool Entity::load(std::string path)
 	return true;
 }
 
-void Entity::render(SDL_Rect* clip)
+void Entity::render(SDL_Rect* camera, SDL_Rect* clip)
 {
-	texture.render(worldToScreen(body->GetPosition()), clip, radToDeg(body->GetAngle()));	
+	texture.render(worldToScreen(body->GetPosition().x) - camera->x, worldToScreen(body->GetPosition().y) - camera->y, clip, radToDeg(body->GetAngle()));
 }
 
-void Entity::renderHitbox()
+void Entity::renderHitbox(SDL_Rect* camera)
 {
 	SDL_Rect* hitbox = new SDL_Rect;
 
@@ -56,8 +56,8 @@ void Entity::renderHitbox()
 	
 	b2Vec2 lowerBound = aabb.lowerBound;
 	SDL_Point screenLowerBound =worldToScreen(lowerBound);
-	hitbox->x = screenLowerBound.x;
-	hitbox->y = screenLowerBound.y;
+	hitbox->x = screenLowerBound.x - camera->x;
+	hitbox->y = screenLowerBound.y - camera->y;
 
 	b2Vec2 extents = aabb.GetExtents();
 	SDL_Point screenExtents = worldToScreen(extents);
