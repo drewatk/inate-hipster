@@ -198,12 +198,13 @@ bool init()
 
 bool loadMedia()
 {
-	bool success = true;
 	
-	backgroundTexture.loadFromFile("sprites/background.tif");
-	ship.load("sprites/medspeedster.png");
+	if (!backgroundTexture.loadFromFile("sprites/background.tif"))
+		return false;
+	if (!ship.load("sprites/medspeedster.png"))
+		return false;
 	
-	return success;
+	return true;
 }
 
 void close()
