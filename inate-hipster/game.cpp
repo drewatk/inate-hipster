@@ -79,6 +79,9 @@ int main(int argc, char* argv[])
 	b2Vec2 bananapos(50, 50);
 	banana.setPos(bananapos);
 
+	Entity* rocket = NULL;
+	Entity* newRocket = NULL;
+
 	while (!quit)
 	{
 		while (SDL_PollEvent(&e) != 0)
@@ -108,8 +111,14 @@ int main(int argc, char* argv[])
 		{
 			worldptr->Step(timeStep, velocityIterations, positionIterations);
 			ship.handleKeyboard();
+			newRocket = ship.fireRocket();
+			if (newRocket != NULL)
+			{
+				delete rocket;
+				rocket = newRocket;
+			}
 			accumulator -= timeStep;
-
+			
 		}
 
 		FPSwords.render(20, 20);
@@ -135,11 +144,15 @@ int main(int argc, char* argv[])
 		FPSwords.render(20, 20);
 		banana.render(camera);
 		ship.render(camera);
-		//SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0x64);
-		//ship.renderAABB(camera);
-		//banana.renderAABB(camera);
-
-
+		if(rocket != NULL)
+			rocket->render(camera);
+		/* Render Hitboxes if thats yr thang
+			SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0x64);
+			ship.renderAABB(camera);
+			banana.renderAABB(camera);
+			if(rocket != NULL)
+				rocket->renderAABB(camera);
+		*/
 		//render
 		SDL_RenderPresent(renderer);
 		countedFrames++;

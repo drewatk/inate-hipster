@@ -23,9 +23,12 @@ public:
 	void renderAABB(SDL_Rect* camera);
 
 	void setPos(b2Vec2 vec);
+	void setPos(b2Vec2 vec, float angle);
+
+
+	b2Body* body;
 
 protected:
-	b2Body* body;
 	Texture texture;
 };
 

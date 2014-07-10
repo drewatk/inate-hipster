@@ -1,12 +1,13 @@
 #include "Entity.h"
 
 
-Entity::Entity()
+Entity::Entity() : body(NULL)
 {
 }
 
 Entity::~Entity()
 {
+	worldptr->DestroyBody(body);
 	body = NULL;
 	texture.free();
 }
@@ -75,4 +76,9 @@ void Entity::renderAABB(SDL_Rect* camera)
 void Entity::setPos(b2Vec2 vec)
 {
 	body->SetTransform(vec, body->GetAngle());
+}
+
+void Entity::setPos(b2Vec2 vec, float angle)
+{
+	body->SetTransform(vec, angle);
 }
