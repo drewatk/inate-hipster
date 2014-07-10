@@ -120,13 +120,15 @@ int main(int argc, char* argv[])
 		
 
 		//Clear the screen
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 		SDL_RenderClear(renderer);
 
 		//render the words and background
 		backgroundTexture.render(0, 0, ship.getCamera());
 		FPSwords.render(20, 20);
 		ship.render();
+		SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0xA);
+		ship.renderHitbox();
 
 
 		//render

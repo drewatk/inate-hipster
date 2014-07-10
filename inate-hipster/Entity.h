@@ -18,6 +18,9 @@ public:
 	
 	bool load(std::string path);
 	void render(SDL_Rect* clip = NULL);
+	
+	//for debugging
+	void renderHitbox();
 
 protected:
 	b2Body* body;
