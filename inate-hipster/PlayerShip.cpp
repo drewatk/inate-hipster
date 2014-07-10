@@ -76,7 +76,7 @@ Entity* PlayerShip::fireRocket()
 		Entity* newRocket = new Entity;
 		newRocket->load("sprites/rocket.png");
 		b2Vec2 position = body->GetPosition();
-		position.x += 2;
+		
 		newRocket->setPos(position, body->GetAngle());
 		b2Vec2 force;
 		force.x = 1000 * cos(body->GetAngle());
