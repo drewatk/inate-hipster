@@ -23,6 +23,7 @@ bool Entity::load(std::string path)
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(20.0f, 20.0f);
+	bodyDef.angularDamping = 0.5f;
 	body = worldptr->CreateBody(&bodyDef);
 	
 	b2PolygonShape dynamicBox;
