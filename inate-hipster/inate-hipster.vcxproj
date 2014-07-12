@@ -72,6 +72,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="screenConst.cpp" />
     <ClCompile Include="worldConst.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -90,6 +91,7 @@
   <ItemGroup>
     <ClInclude Include="Entity.h" />
     <ClInclude Include="PlayerShip.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="worldConst.h" />
     <ClInclude Include="screenConst.h" />
     <ClInclude Include="Texture.h" />
