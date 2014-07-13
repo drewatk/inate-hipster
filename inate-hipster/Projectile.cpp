@@ -32,7 +32,6 @@ ProjectileHandler::~ProjectileHandler()
 
 void ProjectileHandler::shoot(PlayerShip* ship, SDL_Event& e)
 {
-	const Uint8* state = SDL_GetKeyboardState(NULL);
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0 && e.key.keysym.sym == SDLK_f)
 	{
 		Projectile* newRocket = new Projectile(ship);
