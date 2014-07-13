@@ -53,6 +53,9 @@
     <Image Include="sprites\logo1.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="sprites\rocket.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="fonts\Sansus Webissimo-Italic.ttf">

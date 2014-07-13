@@ -83,6 +83,7 @@
     <Image Include="sprites\logo1.png" />
     <Image Include="sprites\man.png" />
     <Image Include="sprites\medspeedster.png" />
+    <Image Include="sprites\rocket.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="fonts\Sansus Webissimo-Italic.ttf" />

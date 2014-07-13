@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
 				quit = true;
 			}
 			
-			projhand.shoot(&ship, e);
+			projhand.handleEvent(&ship, e);
 			
 		}
 		//start the frame cap timer

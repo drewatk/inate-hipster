@@ -9,6 +9,7 @@ Entity::Entity() :
 	
 	fixtureDef.density = DEFAULT_DENSITY;
 	fixtureDef.friction = DEFAULT_FRICTION;
+	fixtureDef.shape = NULL;
 
 }
 
@@ -30,11 +31,15 @@ bool Entity::load(std::string path)
 	body = worldptr->CreateBody(&bodyDef);
 
 	b2PolygonShape dynamicBox;
-	b2Vec2 widthAndHeight(screenToWorld(texture.getWidth()), screenToWorld(texture.getHeight()));
-	widthAndHeight *= 0.5f;
-	dynamicBox.SetAsBox(widthAndHeight.x, widthAndHeight.y, widthAndHeight, 0.0f);
 
-	fixtureDef.shape = &dynamicBox;
+	if (fixtureDef.shape == NULL)
+	{
+		b2Vec2 widthAndHeight(screenToWorld(texture.getWidth()), screenToWorld(texture.getHeight()));
+		widthAndHeight *= 0.5f;
+		dynamicBox.SetAsBox(widthAndHeight.x, widthAndHeight.y, widthAndHeight, 0.0f);
+
+		fixtureDef.shape = &dynamicBox;
+	}
 
 	body->CreateFixture(&fixtureDef);
 
