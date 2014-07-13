@@ -4,7 +4,7 @@
 #include "PlayerShip.h"
 
 //max projectiles of one type
-const int MAX_PROJECTILES = 100;
+const int MAX_PROJECTILES = 10;
 
 class Projectile :
 	public Entity

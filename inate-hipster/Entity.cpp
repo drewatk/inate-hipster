@@ -29,16 +29,12 @@ bool Entity::load(std::string path)
 	
 	body = worldptr->CreateBody(&bodyDef);
 
-	//only makes a fixture a box if the shape hasn't already been sets
-	if (fixtureDef.shape == NULL)
-	{
-		b2PolygonShape dynamicBox;
-		b2Vec2 widthAndHeight(screenToWorld(texture.getWidth()), screenToWorld(texture.getHeight()));
-		widthAndHeight *= 0.5f;
-		dynamicBox.SetAsBox(widthAndHeight.x, widthAndHeight.y, widthAndHeight, 0.0f);
+	b2PolygonShape dynamicBox;
+	b2Vec2 widthAndHeight(screenToWorld(texture.getWidth()), screenToWorld(texture.getHeight()));
+	widthAndHeight *= 0.5f;
+	dynamicBox.SetAsBox(widthAndHeight.x, widthAndHeight.y, widthAndHeight, 0.0f);
 
-		fixtureDef.shape = &dynamicBox;
-	}
+	fixtureDef.shape = &dynamicBox;
 
 	body->CreateFixture(&fixtureDef);
 
