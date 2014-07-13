@@ -47,6 +47,7 @@ void ProjectileHandler::shoot(PlayerShip* ship, SDL_Event& e)
 		{
 			curr = 0;
 		}
+		delete projectiles[curr];
 		projectiles[curr] = newRocket;
 		curr++;
 	}

@@ -25,7 +25,7 @@ Entity banana;
 ProjectileHandler projhand;
 
 //Screen Constants
-const int SCREEN_FPS = 1000000;
+const int SCREEN_FPS = 120;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 //Box2d time constants
