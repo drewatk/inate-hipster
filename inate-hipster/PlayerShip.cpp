@@ -9,6 +9,7 @@ PlayerShip::PlayerShip()
 	camera->w = SCREEN_WIDTH;
 	camera->h = SCREEN_HEIGHT;
 
+	bodyDef.angularDamping = 0.5f;
 }
 
 
@@ -68,27 +69,3 @@ SDL_Rect* PlayerShip::getCamera()
 	return camera;
 }
 
-Entity* PlayerShip::fireRocket()
-{
-	const Uint8* state = SDL_GetKeyboardState(NULL);
-	if (state[SDL_SCANCODE_F])
-	{
-		Entity* newRocket = new Entity;
-		newRocket->load("sprites/rocket.png");
-		b2Vec2 position = body->GetPosition();
-		
-		newRocket->setPos(position, body->GetAngle());
-		b2Vec2 force;
-		force.x = 1000 * cos(body->GetAngle());
-		force.y = 1000 * sin(body->GetAngle());
-
-		newRocket->body->ApplyForceToCenter(force, true);
-
-		return newRocket;
-	}
-	else
-	{
-		return NULL;
-	}
-	
-}

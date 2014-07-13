@@ -8,6 +8,7 @@
 
 #include "Entity.h"
 #include "PlayerShip.h"
+#include "Projectile.h"
 #include "screenConst.h"
 #include "Texture.h"
 #include "Timer.h"
@@ -21,6 +22,7 @@ Texture FPSwords;
 Texture backgroundTexture;
 PlayerShip ship;
 Entity banana;
+ProjectileHandler projhand;
 
 //Screen Constants
 const int SCREEN_FPS = 1000000;
@@ -48,7 +50,7 @@ int main(int argc, char* argv[])
 	{
 		printf("Couldn't load media SDL Error:%s\n", SDL_GetError());
 		close();
-		return 1;
+		return 2;
 	}
 	
 	//main loop flag
@@ -90,7 +92,9 @@ int main(int argc, char* argv[])
 			{
 				quit = true;
 			}
-
+			
+			projhand.shoot(&ship, e);
+			
 		}
 		//start the frame cap timer
 		capTimer.start();
@@ -104,14 +108,13 @@ int main(int argc, char* argv[])
 		}
 		
 		//Accumulator 
-		accumulator += (accTimer.getTicks())/1000.f;
+		accumulator += accTimer.getTicks()/1000.f;
 		accTimer.start();
 
 		while (accumulator >= timeStep)
 		{
 			worldptr->Step(timeStep, velocityIterations, positionIterations);
 			ship.handleKeyboard();
-			newRocket = ship.fireRocket();
 			if (newRocket != NULL)
 			{
 				delete rocket;
@@ -144,6 +147,7 @@ int main(int argc, char* argv[])
 		FPSwords.render(20, 20);
 		banana.render(camera);
 		ship.render(camera);
+		projhand.render(camera);
 		if(rocket != NULL)
 			rocket->render(camera);
 		/* Render Hitboxes if thats yr thang
@@ -187,7 +191,7 @@ bool init()
 	}
 
 	//Create Renderer
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED /*| SDL_RENDERER_PRESENTVSYNC*/);
 	if (renderer == NULL)
 	{
 		printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());

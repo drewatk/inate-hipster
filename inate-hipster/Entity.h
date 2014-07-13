@@ -30,6 +30,9 @@ public:
 
 protected:
 	Texture texture;
+
+	b2BodyDef bodyDef;
+	b2FixtureDef fixtureDef;
 };
 
 

@@ -16,7 +16,6 @@ public:
 	SDL_Rect* getCamera();
 	void handleKeyboard();
 
-	Entity* fireRocket();
 
 private:
 	float thrusterForce = 100.0f;

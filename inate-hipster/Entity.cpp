@@ -1,8 +1,15 @@
 #include "Entity.h"
 
 
-Entity::Entity() : body(NULL)
+Entity::Entity() : 
+	body(NULL)
 {
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(20.0f, 20.0f);
+	
+	fixtureDef.density = DEFAULT_DENSITY;
+	fixtureDef.friction = DEFAULT_FRICTION;
+
 }
 
 Entity::~Entity()
@@ -20,21 +27,14 @@ bool Entity::load(std::string path)
 		return false;
 	}
 	
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(20.0f, 20.0f);
-	bodyDef.angularDamping = 0.5f;
 	body = worldptr->CreateBody(&bodyDef);
-	
+
 	b2PolygonShape dynamicBox;
 	b2Vec2 widthAndHeight(screenToWorld(texture.getWidth()), screenToWorld(texture.getHeight()));
 	widthAndHeight *= 0.5f;
 	dynamicBox.SetAsBox(widthAndHeight.x, widthAndHeight.y, widthAndHeight, 0.0f);
-	
-	b2FixtureDef fixtureDef;
+
 	fixtureDef.shape = &dynamicBox;
-	fixtureDef.density = DEFAULT_DENSITY;
-	fixtureDef.friction = DEFAULT_FRICTION;
 
 	body->CreateFixture(&fixtureDef);
 
