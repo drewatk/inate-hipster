@@ -5,6 +5,7 @@
 #pragma once
 
 #include <Box2D\Box2D.h>
+
 #include "worldConst.h"
 
 const int MAX_BLAST_RAYS = 120;

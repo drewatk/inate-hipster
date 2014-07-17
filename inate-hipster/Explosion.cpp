@@ -1,5 +1,8 @@
-#include "Explosion.h"
+/*
+Parts adapted from Chris Campbell -- http://www.iforce2d.net/b2dtut/explosions
+*/
 
+#include "Explosion.h"
 
 Explosion::Explosion(int numRays, int blastPower) : numRays(numRays), blastPower(blastPower)
 {
