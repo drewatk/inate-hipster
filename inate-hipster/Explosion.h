@@ -16,8 +16,9 @@ public:
 	Explosion(int numRays, int blastPower);
 	~Explosion();
 	void blast();
-	void Explosion::explodeParticle(b2Vec2* loc);
-	void Explosion::clearParticles();
+	void explodeParticle(b2Vec2* loc);
+	void clearParticles();
+	void clearStoppedParticles();
 	
 private:
 	

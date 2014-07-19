@@ -1,5 +1,5 @@
 /*
-Parts adapted from Chris Campbell -- http://www.iforce2d.net/b2dtut/explosions
+	Parts adapted from Chris Campbell -- http://www.iforce2d.net/b2dtut/explosions
 */
 
 #include "Explosion.h"
@@ -56,8 +56,24 @@ void Explosion::explodeParticle(b2Vec2* loc)
 void Explosion::clearParticles()
 {
 	//clear old particles
-	for (int i = 0; i < MAX_BLAST_RAYS; i++) {
-		if (blastParticleBodies[i]) {
+	for (int i = 0; i < MAX_BLAST_RAYS; i++)
+	{
+		if (blastParticleBodies[i]) 
+		{
+			worldptr->DestroyBody(blastParticleBodies[i]);
+			blastParticleBodies[i] = NULL;
+		}
+	}
+}
+
+void Explosion::clearStoppedParticles()
+{
+	for (int i = 0; i < MAX_BLAST_RAYS; i++)
+	{ 
+		b2Vec2 vel = blastParticleBodies[i]->GetLinearVelocity();
+		float length = vel.Length();
+		if (blastParticleBodies[i] && length == 0)
+		{
 			worldptr->DestroyBody(blastParticleBodies[i]);
 			blastParticleBodies[i] = NULL;
 		}

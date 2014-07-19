@@ -12,6 +12,7 @@ class Projectile :
 protected:
 	Projectile(PlayerShip* ship);
 	friend class ProjectileHandler;
+	bool contacting;
 };
 
 class ProjectileHandler
