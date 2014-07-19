@@ -6,6 +6,7 @@ Entity::Entity() :
 {
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(20.0f, 20.0f);
+	bodyDef.userData = this;
 	
 	fixtureDef.density = DEFAULT_DENSITY;
 	fixtureDef.friction = DEFAULT_FRICTION;

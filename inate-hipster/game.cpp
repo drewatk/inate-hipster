@@ -220,7 +220,7 @@ bool init()
 	//Create B2D world
 	b2Vec2 gravity(0.0f, 0.0f);
 	worldptr = new b2World(gravity);
-	
+	worldptr->SetContactListener(&ContactListenerInstance);
 	return true;
 }
 
