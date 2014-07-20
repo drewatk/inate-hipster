@@ -13,6 +13,7 @@
 #include "Texture.h"
 #include "Timer.h"
 #include "worldConst.h"
+#include "ContactListener.h"
 
 //Global font
 TTF_Font* font = NULL;
@@ -37,6 +38,8 @@ const int32 positionIterations = 2;
 bool init();
 bool loadMedia();
 void close();
+
+ContactListener ContactListenerInstance;
 
 int main(int argc, char* argv[])
 {

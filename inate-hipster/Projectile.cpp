@@ -1,6 +1,6 @@
 #include "Projectile.h"
 
-Projectile::Projectile(PlayerShip* ship) : contacting(false)
+Projectile::Projectile(PlayerShip* ship)
 {
 	bodyDef.bullet = true;
 	

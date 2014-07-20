@@ -89,3 +89,13 @@ void Entity::setPos(b2Vec2 vec, float angle)
 {
 	body->SetTransform(vec, angle);
 }
+
+void Entity::startContact()
+{
+
+}
+
+void Entity::endContact()
+{
+
+}

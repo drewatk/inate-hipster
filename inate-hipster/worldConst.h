@@ -2,7 +2,6 @@
 
 #include <Box2D\Box2D.h>
 #include <SDL.h>
-#include "ContactListener.h"
 
 //Level constants
 const int LEVEL_WIDTH = 3622;
@@ -15,4 +14,3 @@ extern SDL_Renderer* renderer;
 
 //Box2D object constants
 extern b2World* worldptr;
-extern ContactListener ContactListenerInstance;

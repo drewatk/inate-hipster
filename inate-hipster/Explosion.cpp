@@ -38,7 +38,7 @@ void Explosion::explodeParticle(b2Vec2* loc)
 			b2Body* body = worldptr->CreateBody(&bd);
 
 			b2CircleShape circleShape;
-			circleShape.m_radius = 0.05;
+			circleShape.m_radius = 0.05f;
 
 			b2FixtureDef fd;
 			fd.shape = &circleShape;

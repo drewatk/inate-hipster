@@ -25,6 +25,8 @@ public:
 	void setPos(b2Vec2 vec);
 	void setPos(b2Vec2 vec, float angle);
 
+	virtual void startContact();
+	virtual void endContact();
 
 	b2Body* body;
 
